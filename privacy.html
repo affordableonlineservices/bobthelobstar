@@ -156,7 +156,7 @@ footer.site a:hover { color: var(--accent); }
 <main class="doc">
 <h1>Privacy Policy</h1>
 <p><strong>Effective Date:</strong> April 18, 2026
-<strong>Last Updated:</strong> April 18, 2026</p>
+<strong>Last Updated:</strong> April 22, 2026</p>
 <p>This Privacy Policy describes how BARILLAS AI LLC ("BoB The Lobstar AI," "we," "us," or "our") collects, uses, discloses, and protects your information when you use our website bobthelobstar.com and our AI assistant service (collectively, the "Service"). By using the Service, you agree to the practices described in this Policy.</p>
 <p>If you do not agree with this Policy, please do not use the Service.</p>
 <hr />
@@ -187,7 +187,17 @@ Mail: BARILLAS AI LLC, Phoenix, Arizona</p>
 <li><strong>Analytics and advertising partners:</strong> we use conversion-tracking pixels and SDKs from third parties (including the TikTok Events API and the Meta / Facebook Pixel) that may receive information about your interactions with our website and our ads, including events such as page views, signups, and subscriptions. These partners may use cookies and similar identifiers to associate your activity on our site with their broader tracking network.</li>
 <li><strong>Payment processor:</strong> Stripe returns data about the status of your payment and subscription to us.</li>
 </ul>
-<h3>2.4 Information We Do Not Collect</h3>
+<h3>2.4 Information from our Facebook Messenger Chatbot</h3>
+<p>We operate an automated chatbot on our Facebook Page ("BoB The Lobstar AI") that answers questions about our Service using content from this website. When you message the Page:</p>
+<ul>
+<li><strong>Page-scoped user ID:</strong> a numeric identifier Facebook assigns that uniquely identifies you to our Page only (it is not your public Facebook ID and cannot be used to identify you on other Facebook apps). We need this value to route our reply back to you.</li>
+<li><strong>Message content:</strong> the text of messages you send, plus a short rolling window of the most recent turns of our conversation.</li>
+<li><strong>Message metadata:</strong> message timestamps and message IDs assigned by Meta.</li>
+</ul>
+<p>Through the Messenger integration we do <strong>not</strong> collect your name, email address, profile photo, friends list, or any other Facebook profile information.</p>
+<p>Messages received through Messenger are held only in server memory (RAM) as a short conversation history. They are not written to any database or long-term storage. All in-memory conversation state is automatically cleared whenever our server restarts (typically multiple times per week). A copy of the message is transmitted to our AI model provider (Groq, Inc.) in order to generate a reply; see Section 4.1.</p>
+<hr />
+<h3>2.5 Information We Do Not Collect</h3>
 <p>We do not knowingly collect:</p>
 <ul>
 <li>Sensitive personal information such as Social Security numbers, government identification numbers, biometric data, or precise geolocation.</li>
@@ -277,6 +287,14 @@ Mail: BARILLAS AI LLC, Phoenix, Arizona</p>
 <li><strong>Opt out of "sale" or "sharing":</strong> we do not sell your personal information and we do not share it for cross-context behavioral advertising in the sense meant by the California Consumer Privacy Act ("CCPA") beyond the cookie-based advertising described above. You may disable advertising cookies using your browser settings or our cookie preferences tool.</li>
 </ul>
 <p>To exercise these rights, email aibob@bobthelobstar.com from the email address associated with your account, or use the data export and deletion tools in your dashboard where available. We will respond within the time period required by applicable law (typically 30 to 45 days).</p>
+<h3 id="messenger-deletion">7.1 Facebook Messenger Data Deletion</h3>
+<p>Because our Facebook Messenger chatbot only stores messages in server memory (RAM) and automatically evicts older turns, message data is effectively self-deleting within a short window of your last message. To proactively request that we purge any lingering conversation data associated with your Facebook Page-scoped user ID:</p>
+<ol>
+<li>Email <strong>aibob@bobthelobstar.com</strong> with the subject line "Messenger Data Deletion".</li>
+<li>Include (a) the name of the Facebook Page you messaged ("BoB The Lobstar AI") and (b) an approximate date range of your conversation. You do not need to send us your Page-scoped user ID; we will match it on our side.</li>
+<li>We will confirm deletion within 30 days.</li>
+</ol>
+<p>You may also unlink our Page from your Facebook account at any time by visiting Facebook's Settings &rarr; Apps and Websites. After unlinking, Facebook will stop forwarding your messages to us.</p>
 <p><strong>California residents</strong> have additional rights under the CCPA, including the right to know the specific pieces of personal information collected, the categories of sources, the business purpose for collecting it, and the categories of third parties with whom we share it. You may designate an authorized agent to make a request on your behalf.</p>
 <p><strong>EU, UK, and Swiss residents</strong> have the right to lodge a complaint with your local data protection authority if you believe we have violated applicable law.</p>
 <p>We will not discriminate against you for exercising your rights.</p>
