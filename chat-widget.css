@@ -248,24 +248,29 @@
  *      by the JS open/minimize handlers.
  * --------------------------------------------------------------------------- */
 @media (max-width: 600px) {
+  /* "Medium" mobile panel: wide and tall enough to chat comfortably, but NOT
+     fullscreen — we leave a gutter on every side so the user can still see
+     some of the site around it. Keeps the dialog feeling like an overlay
+     instead of a takeover screen.
+     - 12px gutter left/right (so panel ≈ viewport − 24px wide)
+     - 80px gap at the bottom for the floating toggle bubble
+     - Top gap is whatever's left after height: uses calc(100dvh − 160px),
+       which on a 640px-tall phone leaves ~80px of site visible up top. */
   #bob-chat-panel {
-    /* Stretch to every edge. inset is shorthand for top/right/bottom/left: 0. */
-    inset: 0;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 100%;
+    left: 12px;
+    right: 12px;
+    bottom: 80px;
+    top: auto;
+    width: auto;
+    max-width: none;
     /* 100dvh = "dynamic viewport height" — handles iOS Safari's collapsing
        address bar cleanly. 100vh is a fallback for older browsers. */
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100vh;
-    max-height: 100dvh;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
+    height: calc(100vh - 160px);
+    height: calc(100dvh - 160px);
+    max-height: calc(100vh - 160px);
+    max-height: calc(100dvh - 160px);
+    /* Keep the rounded corners, border, and drop-shadow from the desktop
+       block so the panel reads as a card floating over the site. */
   }
   /* Small-form only: drop the "Ask BoB" label and shrink the pill to a
      circular icon button so it takes less screen real estate. */
@@ -276,7 +281,6 @@
     right: 16px;
   }
   #bob-chat-toggle .bob-chat-bubble-label { display: none; }
-  /* When the chat is open on mobile (.bob-open on root), hide the bubble —
-     the fullscreen panel's X button is the only minimize control needed. */
-  #bob-chat-root.bob-open #bob-chat-toggle { display: none; }
+  /* Panel is no longer fullscreen, so we leave the bubble visible — users
+     can still tap it to minimize, and it doesn't overlap the card. */
 }
