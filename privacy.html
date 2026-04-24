@@ -195,7 +195,7 @@ Mail: BARILLAS AI LLC, Phoenix, Arizona</p>
 <li><strong>Message metadata:</strong> message timestamps and message IDs assigned by Meta.</li>
 </ul>
 <p>Through the Messenger integration we do <strong>not</strong> collect your name, email address, profile photo, friends list, or any other Facebook profile information.</p>
-<p>Messages received through Messenger are held only in server memory (RAM) as a short conversation history. They are not written to any database or long-term storage. All in-memory conversation state is automatically cleared whenever our server restarts (typically multiple times per week). A copy of the message is transmitted to our AI model provider (Groq, Inc.) in order to generate a reply; see Section 4.1.</p>
+<p>Messages received through Messenger are held only in server memory (RAM) as a short conversation history. They are not written to any database or long-term storage. In-memory conversation state is automatically evicted after a period of inactivity (currently two hours after your last message) and is also cleared whenever our server restarts. We do not guarantee a specific restart cadence. A copy of the message is transmitted to our AI model provider (Groq, Inc.) in order to generate a reply; see Section 4.1.</p>
 <hr />
 <h3>2.5 Information We Do Not Collect</h3>
 <p>We do not knowingly collect:</p>
@@ -288,7 +288,7 @@ Mail: BARILLAS AI LLC, Phoenix, Arizona</p>
 </ul>
 <p>To exercise these rights, email aibob@bobthelobstar.com from the email address associated with your account, or use the data export and deletion tools in your dashboard where available. We will respond within the time period required by applicable law (typically 30 to 45 days).</p>
 <h3 id="messenger-deletion">7.1 Facebook Messenger Data Deletion</h3>
-<p>Because our Facebook Messenger chatbot only stores messages in server memory (RAM) and automatically evicts older turns, message data is effectively self-deleting within a short window of your last message. To proactively request that we purge any lingering conversation data associated with your Facebook Page-scoped user ID:</p>
+<p>Because our Facebook Messenger chatbot only stores messages in server memory (RAM), automatically evicts older turns, and drops the entire conversation after roughly two hours of inactivity, message data is effectively self-deleting shortly after you stop interacting. To proactively request that we purge any lingering conversation data associated with your Facebook Page-scoped user ID:</p>
 <ol>
 <li>Email <strong>aibob@bobthelobstar.com</strong> with the subject line "Messenger Data Deletion".</li>
 <li>Include (a) the name of the Facebook Page you messaged ("BoB The Lobstar AI") and (b) an approximate date range of your conversation. You do not need to send us your Page-scoped user ID; we will match it on our side.</li>
