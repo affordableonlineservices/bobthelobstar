@@ -31,6 +31,25 @@
   const MAX_MESSAGE_CHARS = 1000; // must match MAX_MESSAGE_CHARS on the bot
   const PRIVACY_URL = '/privacy.html';
 
+  // ---------------------------------------------------------------------------
+  // Pre-warm the bot. Render's free tier sleeps containers after ~15 min idle,
+  // so the first real chat request can take 30-60s while the dyno cold-starts.
+  // We fire a wake-up request the moment this script loads so the container
+  // is hot by the time the visitor finishes reading the page and types
+  // something. We use no-cors mode + ignore the result because all we need
+  // is for the request to hit Render's edge — the actual response doesn't
+  // matter (a 404 still wakes the container).
+  //
+  // Hits the bot root, not /chat, so we don't trigger the LLM or pollute logs
+  // with empty messages. If your bot has a /health endpoint, even better —
+  // change BOB_PREWARM_URL to point at that.
+  // ---------------------------------------------------------------------------
+  const BOB_PREWARM_URL = BOB_BOT_URL.replace(/\/chat\/?$/, '/');
+  try {
+    fetch(BOB_PREWARM_URL, { method: 'GET', mode: 'no-cors', cache: 'no-store' })
+      .catch(function () { /* swallow — best-effort warm-up */ });
+  } catch (_) { /* never let pre-warm break the page */ }
+
   // Fresh session per page load. crypto.randomUUID is supported in every
   // evergreen browser; a tiny fallback keeps us alive on older ones.
   const SESSION_ID = (crypto && crypto.randomUUID)
@@ -143,6 +162,13 @@
     });
 
     // -------------------------------------------------------------------------
+    // Streaming endpoint. Same host as BOB_BOT_URL but /chat/stream. Falls back
+    // to the original JSON /chat if streaming fails (older browser, hostile
+    // proxy mangling SSE, network issue, etc.).
+    // -------------------------------------------------------------------------
+    const BOB_BOT_STREAM_URL = BOB_BOT_URL.replace(/\/chat\/?$/, '/chat/stream');
+
+    // -------------------------------------------------------------------------
     // Submit flow. Guarded so double-clicks don't fire two requests.
     // -------------------------------------------------------------------------
     let inFlight = false;
@@ -160,6 +186,11 @@
       const typing = addTyping();
 
       try {
+        // ---- Try streaming first --------------------------------------------
+        const streamed = await sendStreaming(text, typing);
+        if (streamed) return; // success path — sendStreaming handled UI
+
+        // ---- Fallback: original JSON /chat ----------------------------------
         const res = await fetch(BOB_BOT_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -167,10 +198,6 @@
         });
         typing.remove();
         if (!res.ok) {
-          // Surface a friendly message instead of technical details. 429 is
-          // the conventional "slow down" status but our bot returns 200 with
-          // a nice reply for its own rate limits, so a non-2xx here means
-          // a real fault.
           addMessage('bot', "I'm having trouble reaching the kitchen right now. Mind trying again in a moment?");
           return;
         }
@@ -185,6 +212,91 @@
         input.focus();
       }
     });
+
+    // -------------------------------------------------------------------------
+    // sendStreaming — returns true on success, false to fall back to JSON.
+    // Renders tokens into a single bot bubble as they arrive (live typing).
+    // -------------------------------------------------------------------------
+    async function sendStreaming(text, typing) {
+      let res;
+      try {
+        res = await fetch(BOB_BOT_STREAM_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
+          body: JSON.stringify({ message: text, session_id: SESSION_ID }),
+        });
+      } catch (e) {
+        return false; // network error — let JSON fallback try
+      }
+      if (!res.ok || !res.body) return false;
+
+      // Swap the typing dots for a real (initially empty) bot bubble that
+      // we'll grow as chunks arrive.
+      typing.remove();
+      const bubble = addMessage('bot', '');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buf = '';
+      let gotAnyText = false;
+
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, { stream: true });
+
+          // SSE events are separated by blank lines (\n\n).
+          let eventEnd;
+          while ((eventEnd = buf.indexOf('\n\n')) !== -1) {
+            const rawEvent = buf.slice(0, eventEnd);
+            buf = buf.slice(eventEnd + 2);
+
+            // Each event has one or more "data: ..." lines. We only care
+            // about data lines and concatenate them.
+            const dataLines = rawEvent.split('\n')
+              .filter(l => l.startsWith('data:'))
+              .map(l => l.slice(5).trimStart());
+            if (!dataLines.length) continue;
+            const dataStr = dataLines.join('\n');
+
+            let payload;
+            try { payload = JSON.parse(dataStr); }
+            catch (_) { continue; } // ignore malformed event
+
+            if (payload.text) {
+              bubble.textContent += payload.text;
+              gotAnyText = true;
+              messagesEl.scrollTop = messagesEl.scrollHeight;
+            }
+            if (payload.done) {
+              if (!gotAnyText) bubble.textContent = "Hmm, I didn't catch that. Try again?";
+              return true;
+            }
+            if (payload.error) {
+              bubble.textContent = bubble.textContent || payload.error;
+              return true;
+            }
+          }
+        }
+        // Stream ended without an explicit {done: true}. If we got tokens,
+        // that's still a success.
+        if (!gotAnyText) {
+          bubble.remove();
+          return false;
+        }
+        return true;
+      } catch (e) {
+        // Mid-stream failure. If we already started rendering, keep what we
+        // have and append a soft note. Otherwise let JSON fallback handle it.
+        if (gotAnyText) {
+          bubble.textContent += '\n\n(Connection dropped — try sending again for the rest.)';
+          return true;
+        }
+        bubble.remove();
+        return false;
+      }
+    }
   }
 
   // Used when we inject user-supplied data attributes into the intro copy so
