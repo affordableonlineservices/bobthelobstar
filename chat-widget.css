@@ -1,0 +1,290 @@
+/*
+ * BoB the Lobstar — inline chat embed styles.
+ *
+ * This is the INLINE variant: the chat renders as a card in the page flow,
+ * centered below the pricing section on the homepage. No floating bubble,
+ * no open/minimize state — the chat is always visible.
+ *
+ * All selectors are prefixed with #bob-chat-embed (or .bob-…) so they can't
+ * collide with the host page's CSS. Colour tokens live in the #bob-chat-embed
+ * block at the top — tweak those to rebrand.
+ */
+
+#bob-chat-embed {
+  /* Brand palette — mirrors bobthelobstar.com's neon-green-on-black theme
+     (--neon, --bg, --text on the parent site). Keeping our own tokens so
+     this still works if dropped into a repo that doesn't define those. */
+  --bob-neon:          #00ff41;   /* bright accent: focus ring, link colour */
+  --bob-primary:       #00cc33;   /* user bubbles, send btn */
+  --bob-primary-dark:  #00a329;   /* hover state for the above */
+  --bob-glow:          rgba(0, 255, 65, 0.35);
+  --bob-bg:            rgba(10, 20, 11, 0.8);    /* site's --card-bg */
+  --bob-surface:       #050a06;                   /* site's --bg */
+  --bob-header:        #080f09;                   /* site's --bg2 */
+  --bob-text:          #e8f5e9;                   /* site's --text */
+  --bob-muted:         #7a9b7e;                   /* site's --text-dim */
+  --bob-bot-bubble:    rgba(0, 255, 65, 0.08);    /* subtle green tint */
+  --bob-user-bubble:   var(--bob-primary);
+  --bob-user-text:     #050a06;                   /* dark text on neon reads crisp */
+  --bob-border:        rgba(0, 255, 65, 0.15);    /* site's --glass-border */
+  --bob-focus-ring:    var(--bob-neon);
+  --bob-shadow:        0 10px 40px rgba(0, 0, 0, 0.55);
+  --bob-radius:        14px;
+
+  /* Font stack mirrors the site's body font so the embed blends in. */
+  --bob-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI",
+              Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* ---- Section layout ---- */
+  /* The embed sits in normal document flow. Padding matches the site's
+     other sections so spacing feels consistent. */
+  font-family: var(--bob-font);
+  color: var(--bob-text);
+  font-size: 15px;
+  line-height: 1.55;
+  padding: 8rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Screen-reader-only label for the textarea. */
+.bob-chat-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Invitation header (the "Got questions?" copy above the card) --------- */
+.bob-embed-intro {
+  max-width: 720px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+.bob-embed-label {
+  font-family: 'Syne', var(--bob-font);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--bob-neon);
+  margin-bottom: 0.75rem;
+  /* Neon glow to match the hero style on the site. */
+  text-shadow: 0 0 12px var(--bob-glow);
+}
+.bob-embed-title {
+  font-family: 'Syne', var(--bob-font);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.bob-embed-sub {
+  color: var(--bob-muted);
+  font-size: 1.05rem;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* --- The chat card itself ------------------------------------------------- */
+.bob-chat-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--bob-bg);
+  border: 1px solid var(--bob-border);
+  border-radius: var(--bob-radius);
+  box-shadow: var(--bob-shadow);
+  /* Subtle inner glow so the card sits "lit" against the page grid. */
+  box-shadow:
+    var(--bob-shadow),
+    inset 0 0 0 1px rgba(0, 255, 65, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 520px;
+}
+
+.bob-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--bob-header);
+  border-bottom: 1px solid var(--bob-border);
+  color: var(--bob-text);
+}
+.bob-chat-title-icon {
+  font-size: 28px;
+  line-height: 1;
+  /* Soft glow on the lobstar so it reads as the brand icon. */
+  filter: drop-shadow(0 0 6px var(--bob-glow));
+}
+.bob-chat-title-name {
+  font-family: 'Syne', var(--bob-font);
+  font-weight: 700;
+  font-size: 16px;
+}
+.bob-chat-title-sub {
+  font-size: 12px;
+  color: var(--bob-muted);
+}
+/* Live "online" dot to reassure users BoB is awake. */
+.bob-chat-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--bob-muted);
+}
+.bob-chat-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bob-neon);
+  box-shadow: 0 0 6px var(--bob-glow);
+}
+
+/* --- Messages ------------------------------------------------------------- */
+.bob-chat-messages {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bob-surface);
+}
+.bob-msg { display: flex; }
+.bob-msg-user { justify-content: flex-end; }
+.bob-msg-bot  { justify-content: flex-start; }
+.bob-msg-bubble {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.bob-msg-bot .bob-msg-bubble {
+  background: var(--bob-bot-bubble);
+  border: 1px solid var(--bob-border);
+  color: var(--bob-text);
+  border-bottom-left-radius: 4px;
+}
+.bob-msg-user .bob-msg-bubble {
+  background: var(--bob-user-bubble);
+  color: var(--bob-user-text);
+  border-bottom-right-radius: 4px;
+  /* Tiny glow so user bubbles feel "sent" rather than flat. */
+  box-shadow: 0 0 12px rgba(0, 255, 65, 0.25);
+}
+
+/* Typing indicator — three pulsing dots in a bot bubble. */
+.bob-msg-typing .bob-msg-bubble {
+  display: inline-flex;
+  gap: 4px;
+  padding: 12px 14px;
+}
+.bob-msg-typing span {
+  width: 6px;
+  height: 6px;
+  background: var(--bob-muted);
+  border-radius: 50%;
+  animation: bob-blink 1.2s infinite ease-in-out;
+}
+.bob-msg-typing span:nth-child(2) { animation-delay: 0.2s; }
+.bob-msg-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bob-blink {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.9); }
+  40%           { opacity: 1;    transform: scale(1); }
+}
+
+/* --- Composer ------------------------------------------------------------- */
+.bob-chat-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid var(--bob-border);
+  background: var(--bob-header);
+}
+#bob-chat-input {
+  flex: 1 1 auto;
+  resize: none;
+  border: 1px solid var(--bob-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  max-height: 120px;
+  outline: none;
+  background: var(--bob-surface);
+  color: var(--bob-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#bob-chat-input::placeholder { color: var(--bob-muted); }
+#bob-chat-input:focus {
+  border-color: var(--bob-neon);
+  box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.18);
+}
+#bob-chat-send {
+  background: var(--bob-primary);
+  color: var(--bob-user-text);
+  border: none;
+  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 0 12px var(--bob-glow);
+}
+#bob-chat-send:hover:not(:disabled) {
+  background: var(--bob-primary-dark);
+  transform: translateY(-1px);
+}
+#bob-chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+#bob-chat-send:focus-visible { outline: 3px solid var(--bob-focus-ring); outline-offset: 2px; }
+
+.bob-chat-footer {
+  font-size: 11px;
+  color: var(--bob-muted);
+  text-align: center;
+  padding: 8px 12px 12px;
+  background: var(--bob-header);
+  border-top: 1px solid var(--bob-border);
+}
+.bob-chat-footer a { color: var(--bob-neon); text-decoration: underline; }
+
+/* Custom scrollbar so the messages area doesn't show a bright native bar. */
+.bob-chat-messages { scrollbar-width: thin; scrollbar-color: var(--bob-border) transparent; }
+.bob-chat-messages::-webkit-scrollbar { width: 8px; }
+.bob-chat-messages::-webkit-scrollbar-track { background: transparent; }
+.bob-chat-messages::-webkit-scrollbar-thumb { background: var(--bob-border); border-radius: 4px; }
+.bob-chat-messages::-webkit-scrollbar-thumb:hover { background: var(--bob-muted); }
+
+/* --- Responsive ----------------------------------------------------------
+ * Inline mode is much simpler than the old floating panel: the card just
+ * reflows with its container. We only tweak padding and height so it
+ * feels proportional on small screens.
+ * ------------------------------------------------------------------------ */
+@media (max-width: 900px) {
+  #bob-chat-embed { padding: 6rem 1.5rem; }
+  .bob-chat-card  { height: 480px; }
+}
+@media (max-width: 600px) {
+  #bob-chat-embed { padding: 4rem 1rem; }
+  .bob-chat-card  { height: 440px; }
+  .bob-embed-title { font-size: 1.75rem; }
+  .bob-embed-sub   { font-size: 0.95rem; }
+  .bob-msg-bubble  { max-width: 85%; font-size: 14px; }
+}
