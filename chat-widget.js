@@ -1,5 +1,8 @@
 /**
  * BoB the Lobstar — inline chat embed.
+ * 
+ * UPDATED FOR CONTRACTOR POSITIONING
+ * Changed the opening greeting from restaurant-focused to contractor-focused.
  *
  * This is the INLINE variant: instead of a floating bubble, the chat renders
  * directly into an existing DOM element with id="bob-chat-embed" that lives
@@ -15,7 +18,7 @@
  * And place the mount point wherever you want the chat to appear:
  *
  *   <section id="bob-chat-embed" data-bob-title="Talk to BoB"
- *            data-bob-sub="Ask about our seafood, orders, or the shop.">
+ *            data-bob-sub="Ask about pricing, features, how BoB captures leads, or schedule a demo.">
  *   </section>
  *
  * Configure the bot endpoint below (BOB_BOT_URL). Memory-only session:
@@ -70,7 +73,7 @@
     // defaults kick in for anything that's not supplied.
     const title = mount.dataset.bobTitle || 'Got questions? Chat with BoB';
     const sub = mount.dataset.bobSub
-      || "Ask about our seafood, orders, or anything else — BoB's happy to help.";
+      || "Ask about our services, pricing, features, or how we capture leads — BoB's happy to help.";
     const label = mount.dataset.bobLabel || 'AI Assistant';
 
     // -------------------------------------------------------------------------
@@ -140,10 +143,16 @@
       return wrap;
     }
 
-    // Open the conversation with BoB's hello — no user interaction required.
+    // =========================================================================
+    // CONTRACTOR-FOCUSED OPENING MESSAGE
+    // =========================================================================
+    // Changed from: "Hey there! I'm BoB, the friendly lobstar around here. 
+    //              Ask me anything about our seafood, orders, or the shop."
+    // 
+    // To contractor-specific greeting:
     addMessage(
       'bot',
-      "Hey there! I'm BoB, the friendly lobstar around here. Ask me anything about our seafood, orders, or the shop."
+      "Hey! I'm BoB, your AI assistant for capturing leads and managing your online presence. Ask me about pricing, features, how contractors use this, or schedule a demo. Always happy to help!"
     );
 
     // -------------------------------------------------------------------------
@@ -198,14 +207,14 @@
         });
         typing.remove();
         if (!res.ok) {
-          addMessage('bot', "I'm having trouble reaching the kitchen right now. Mind trying again in a moment?");
+          addMessage('bot', "I'm having trouble reaching the server right now. Mind trying again in a moment?");
           return;
         }
         const data = await res.json();
         addMessage('bot', data.reply || "Hmm, I didn't catch that. Try again?");
       } catch (err) {
         typing.remove();
-        addMessage('bot', "Looks like my shell's offline for a second. Please try again.");
+        addMessage('bot', "Looks like I'm offline for a second. Please try again.");
       } finally {
         inFlight = false;
         sendBtn.disabled = false;
