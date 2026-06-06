@@ -24,6 +24,9 @@
     --neon: #00ff41;
     --neon-dim: #00cc33;
     --neon-glow: rgba(0,255,65,0.35);
+    --pink: #ff2d9b;
+    --pink-dim: #d4187e;
+    --pink-glow: rgba(255,45,155,0.4);
     --bg: #050a06;
     --bg2: #080f09;
     --glass: rgba(0,255,65,0.04);
@@ -33,7 +36,7 @@
     --card-bg: rgba(10,20,11,0.8);
     --danger: #ff4444;
   }
-  
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
@@ -57,7 +60,7 @@
     z-index: 0;
   }
 
-  /* Navigation */
+  /* ── Navigation ─────────────────────────────── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -67,25 +70,99 @@
     justify-content: space-between;
     padding: 1rem 2rem;
     backdrop-filter: blur(20px);
-    background: rgba(5,10,6,0.85);
+    background: rgba(5,10,6,0.92);
     border-bottom: 1px solid var(--glass-border);
   }
-  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
   .nav-logo span { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--neon); letter-spacing: 0.03em; font-weight: 700; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
   .nav-links a:hover { color: var(--neon); }
+
   .nav-cta {
     background: var(--neon); color: #000; font-weight: 700; font-size: 0.85rem;
     padding: 0.55rem 1.25rem; border-radius: 6px; text-decoration: none;
     transition: box-shadow 0.2s, transform 0.2s;
     letter-spacing: 0.03em;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .nav-cta:hover { box-shadow: 0 0 24px var(--neon-glow); transform: translateY(-1px); }
 
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 200;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--neon);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile nav drawer */
+  .nav-mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(5,10,6,0.97);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+  }
+  .nav-mobile-overlay.open { display: flex; }
+  .nav-mobile-overlay a {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .nav-mobile-overlay a:hover { color: var(--neon); }
+  .nav-mobile-overlay .nav-cta {
+    font-size: 1rem;
+    padding: 0.85rem 2.5rem;
+    margin-top: 1rem;
+  }
+
   section { position: relative; z-index: 1; }
 
-  /* Hero */
+  /* ── Hero ────────────────────────────────────── */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -159,9 +236,10 @@
     cursor: pointer;
     transition: box-shadow 0.2s, transform 0.2s;
     letter-spacing: 0.02em;
+    display: inline-block;
   }
   .btn-primary:hover { box-shadow: 0 0 36px var(--neon-glow); transform: translateY(-2px); }
-  
+
   .btn-secondary {
     border: 1px solid var(--glass-border);
     color: var(--text);
@@ -174,17 +252,19 @@
     transition: border-color 0.2s, color 0.2s;
     font-size: 1rem;
     cursor: pointer;
-    border: none;
+    display: inline-block;
   }
   .btn-secondary:hover { border-color: var(--neon); color: var(--neon); }
 
-  /* Value Proposition */
+  /* ── Value Cards ─────────────────────────────── */
   .value-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
     margin-top: 3rem;
     animation: fadeUp 0.7s 0.5s ease both;
+    width: 100%;
+    max-width: 1100px;
   }
   .value-card {
     background: var(--card-bg);
@@ -192,6 +272,7 @@
     padding: 2rem;
     border-radius: 12px;
     transition: transform 0.3s, border-color 0.3s;
+    text-align: left;
   }
   .value-card:hover {
     transform: translateY(-4px);
@@ -203,19 +284,86 @@
   }
   .value-card h3 {
     font-family: 'Syne', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 0.75rem;
     color: var(--neon);
   }
   .value-card p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-dim);
     line-height: 1.6;
   }
 
+  /* ── Chat Shortcut Card (pink/magenta) ───────── */
+  .value-card.chat-shortcut {
+    background: rgba(255,45,155,0.06);
+    border: 1px solid rgba(255,45,155,0.35);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  .value-card.chat-shortcut::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top left, rgba(255,45,155,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .value-card.chat-shortcut:hover {
+    border-color: var(--pink);
+    box-shadow: 0 0 40px var(--pink-glow), 0 8px 32px rgba(255,45,155,0.2);
+    transform: translateY(-6px) scale(1.02);
+  }
+  .value-card.chat-shortcut h3 {
+    color: var(--pink);
+    text-shadow: 0 0 20px rgba(255,45,155,0.5);
+    font-size: 1.05rem;
+  }
+  .value-card.chat-shortcut .value-card-icon {
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 8px rgba(255,45,155,0.7));
+    animation: floatBob 3s ease-in-out infinite;
+  }
+  @keyframes floatBob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+  .chat-cta-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--pink);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: gap 0.2s;
+  }
+  .value-card.chat-shortcut:hover .chat-cta-arrow { gap: 0.7rem; }
+  .chat-cta-arrow svg {
+    width: 16px; height: 16px;
+    transition: transform 0.2s;
+  }
+  .value-card.chat-shortcut:hover .chat-cta-arrow svg { transform: translateX(3px); }
+
+  /* Shimmer border animation on chat card */
+  @keyframes shimmerBorder {
+    0%   { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
+    50%  { box-shadow: 0 0 28px rgba(255,45,155,0.6), 0 0 60px rgba(255,45,155,0.2); }
+    100% { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
+  }
+  .value-card.chat-shortcut {
+    animation: shimmerBorder 3s ease-in-out infinite;
+  }
+  .value-card.chat-shortcut:hover {
+    animation: none;
+  }
+
   @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-  /* Section Styling */
+  /* ── Section Styling ─────────────────────────── */
   .section-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -341,7 +489,7 @@
   }
   .industry-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 1.5rem;
     margin-top: 2rem;
   }
@@ -372,7 +520,7 @@
   }
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 3rem;
   }
@@ -387,7 +535,7 @@
   .price-card.featured {
     border-color: var(--neon);
     box-shadow: 0 0 30px rgba(0,255,65,0.15);
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
   .price-card:hover { border-color: var(--neon); }
   .price-tag {
@@ -467,7 +615,7 @@
   }
   .price-btn.secondary:hover { background: var(--glass); }
 
-  /* ROI Calculator / Why Pay */
+  /* ROI */
   #roi-section {
     background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%);
   }
@@ -498,7 +646,7 @@
   }
   .roi-item p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
 
-  /* Testimonial / Social Proof */
+  /* Social Proof */
   #proof {
     background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%);
   }
@@ -541,7 +689,7 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 3rem;
     margin-bottom: 2rem;
   }
@@ -552,6 +700,7 @@
     font-size: 0.95rem;
   }
   .footer-col a, .footer-col p {
+    display: block;
     font-size: 0.85rem;
     color: var(--text-dim);
     text-decoration: none;
@@ -568,32 +717,121 @@
     color: var(--text-dim);
   }
 
-  /* Responsive */
+  /* ── Back-to-Top Arrow ───────────────────────── */
+  #back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 200;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--pink);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px var(--pink-glow), 0 4px 16px rgba(0,0,0,0.4);
+    transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+  }
+  #back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  #back-to-top:hover {
+    box-shadow: 0 0 36px var(--pink-glow), 0 6px 24px rgba(0,0,0,0.5);
+    transform: translateY(-3px);
+  }
+  #back-to-top svg {
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  /* ── Responsive ──────────────────────────────── */
+
+  /* Large desktop: 4-col value cards look fine */
+  @media (max-width: 1024px) {
+    .value-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+
   @media (max-width: 768px) {
     nav { padding: 0.8rem 1rem; }
-    .nav-links { gap: 1rem; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-hamburger { display: flex; }
+
     .price-card.featured { transform: scale(1); }
+
     #hero { padding: 6rem 1rem 3rem; }
-    h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+    h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
     .hero-sub { font-size: 1rem; }
-    .hero-btns { flex-direction: column; }
-    .btn-primary, .btn-secondary { width: 100%; }
+    .hero-btns { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+
+    .value-cards { grid-template-columns: 1fr; }
+    .value-card { text-align: left; }
+
+    section { padding: 4.5rem 1rem; }
+    section h2 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+
+    .pain-points { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
+    .roi-card { grid-template-columns: 1fr; }
+    .proof-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+
+    #back-to-top { bottom: 1.2rem; right: 1.2rem; width: 44px; height: 44px; }
+  }
+
+  @media (max-width: 480px) {
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+    .value-cards { gap: 1rem; }
   }
 </style>
 </head>
 <body>
+
+<!-- Back-to-top button -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<!-- Mobile Nav Overlay -->
+<div class="nav-mobile-overlay" id="mobileNav">
+  <a href="#why-you-need" onclick="closeMobileNav()">Why You Need This</a>
+  <a href="#industries" onclick="closeMobileNav()">Industries</a>
+  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a href="#bob-chat-embed" onclick="closeMobileNav()">Chat with BoB 💬</a>
+  <a href="#pricing" class="nav-cta" onclick="closeMobileNav()">Get Started</a>
+</div>
 
 <!-- Navigation -->
 <nav>
   <a class="nav-logo" href="#hero">
     <span>🦞 BoB The Lobstar</span>
   </a>
-  <div class="nav-links">
-    <a href="#why-you-need">Why You Need This</a>
-    <a href="#industries">Industries</a>
-    <a href="#pricing">Pricing</a>
-  </div>
+  <ul class="nav-links">
+    <li><a href="#why-you-need">Why You Need This</a></li>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
   <a class="nav-cta" href="#pricing">Get Started</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- Hero -->
@@ -623,6 +861,19 @@
       <div class="value-card-icon">📱</div>
       <h3>Smart Social + Ads</h3>
       <p>AI posts tailored content daily. Manages your Google & Facebook Ad spend for maximum ROI.</p>
+    </div>
+    <!-- Chat Shortcut Card -->
+    <div class="value-card chat-shortcut" onclick="document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Chat with BoB">
+      <div class="value-card-icon">🦞</div>
+      <h3>Still have questions?</h3>
+      <p>BoB is standing by right now. Get instant answers on pricing, features, and how to grow your business — no waiting, no sales pitch.</p>
+      <div class="chat-cta-arrow">
+        Let's Chat
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ff2d9b" stroke-width="2.5" fill="none">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -865,7 +1116,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--glass); border-radius: 12px; border: 1px solid var(--glass-border);">
-      <p style="font-size: 1rem; color: var(--text-dim); margin-bottom: 1rem;">🎁 <strong>Special Offer:</strong> Sign up this month and get your first month 50% off. Plus, 14-day free trial with no credit card required.</p>
+      <p style="font-size: 1rem; color: var(--text-dim);">🎁 <strong>Special Offer:</strong> Sign up this month and get your first month 50% off. Plus, 14-day free trial with no credit card required.</p>
     </div>
   </div>
 </section>
@@ -896,8 +1147,8 @@
 </section>
 
 <!-- Chat Widget Mount Point -->
-<section id="bob-chat-embed" 
-         data-bob-label="AI Assistant" 
+<section id="bob-chat-embed"
+         data-bob-label="AI Assistant"
          data-bob-title="Questions About BoB?"
          data-bob-sub="Ask about pricing, features, how BoB captures leads, or schedule a demo. BoB answers instantly.">
 </section>
@@ -907,7 +1158,7 @@
   <div class="section-content">
     <h2 style="margin-bottom: 1rem;">Stop Leaving Money on the Table</h2>
     <p class="section-sub" style="max-width: 600px; margin: 0 auto 2rem;">Every day without BoB is another day you're losing leads to faster competitors. Start your 14-day free trial today.</p>
-    <a href="#pricing" class="btn-primary" style="display: inline-block;">Get Started Now</a>
+    <a href="#pricing" class="btn-primary">Get Started Now</a>
   </div>
 </section>
 
@@ -963,7 +1214,7 @@
   // Track pricing view
   var pricingSection = document.getElementById('pricing');
   if (pricingSection) {
-    var observer = new IntersectionObserver(function(entries) {
+    var pricingObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           fbq('track', 'ViewContent', { content_id: 'pricing-table', content_name: 'Pricing Plans' });
@@ -971,8 +1222,42 @@
         }
       });
     }, { threshold: 0.3 });
-    observer.observe(pricingSection);
+    pricingObserver.observe(pricingSection);
   }
+
+  // Back-to-top visibility
+  var backToTop = document.getElementById('back-to-top');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+
+  // Mobile nav toggle
+  function toggleMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    var btn = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+  }
+  function closeMobileNav() {
+    var nav = document.getElementById('mobileNav');
+    var btn = document.getElementById('hamburger');
+    nav.classList.remove('open');
+    btn.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Keyboard support for chat shortcut card
+  document.querySelector('.chat-shortcut').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'});
+    }
+  });
 </script>
 
 <link rel="stylesheet" href="/chat-widget.css">
