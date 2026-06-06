@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thanks — BoB The Lobstar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '401523957773845');fbq('track', 'PageView');fbq('track', 'Lead');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=401523957773845&ev=Lead&noscript=1"/></noscript>
+
+<!-- TikTok Pixel -->
+<script>
+!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};ttq.load('D7EV513C77U6KV5AB8GG');ttq.page();ttq.track('SubmitForm');}(window, document, 'ttq');
+</script>
+
+<style>
+  :root {
+    --neon: #00ff41;
+    --neon-glow: rgba(0,255,65,0.35);
+    --pink: #ff2d9b;
+    --pink-glow: rgba(255,45,155,0.4);
+    --bg: #050a06;
+    --glass: rgba(0,255,65,0.04);
+    --glass-border: rgba(0,255,65,0.15);
+    --text: #e8f5e9;
+    --text-dim: #7a9b7e;
+    --card-bg: rgba(10,20,11,0.9);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Radial glow behind card */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(ellipse, rgba(0,255,65,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 60px rgba(0,255,65,0.08), 0 20px 60px rgba(0,0,0,0.5);
+    animation: fadeUp 0.7s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Floating logo */
+  .logo-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .logo-wrap img {
+    height: 120px;
+    width: auto;
+    animation: floatLogo 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(0,255,65,0.6)) drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+  }
+  @keyframes floatLogo {
+    0%,100% { transform: translateY(0px);  filter: drop-shadow(0 0 20px rgba(0,255,65,0.6)) drop-shadow(0 8px 24px rgba(0,0,0,0.5)); }
+    50%      { transform: translateY(-10px); filter: drop-shadow(0 0 36px rgba(0,255,65,0.9)) drop-shadow(0 20px 32px rgba(0,0,0,0.6)); }
+  }
+
+  /* Success badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,255,65,0.08);
+    border: 1px solid rgba(0,255,65,0.3);
+    color: var(--neon);
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--neon);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  h1 .highlight {
+    color: var(--neon);
+    text-shadow: 0 0 30px rgba(0,255,65,0.4);
+  }
+
+  .sub {
+    color: var(--text-dim);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+  .sub strong { color: var(--text); }
+
+  /* What happens next list */
+  .next-steps {
+    background: rgba(0,255,65,0.03);
+    border: 1px solid rgba(0,255,65,0.1);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+  .next-steps p {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neon);
+    margin-bottom: 0.75rem;
+  }
+  .next-steps ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .next-steps li {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .next-steps li::before {
+    content: '✓';
+    color: var(--neon);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* CTA button */
+  .btn-back {
+    display: inline-block;
+    background: var(--neon);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: box-shadow 0.2s, transform 0.2s;
+    margin-top: 0.25rem;
+  }
+  .btn-back:hover {
+    box-shadow: 0 0 36px var(--neon-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Contact line */
+  .contact-line {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-top: 1.5rem;
+  }
+  .contact-line a {
+    color: var(--neon);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .contact-line a:hover { text-decoration: underline; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--glass-border);
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 2rem 1.25rem; }
+    .logo-wrap img { height: 80px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+
+    <div class="logo-wrap">
+      <img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB The Lobstar" />
+    </div>
+
+    <div class="badge">
+      <span class="badge-dot"></span> Message Received
+    </div>
+
+    <h1>BoB's <span class="highlight">on it.</span></h1>
+
+    <p class="sub">Thanks for reaching out! Your demo request landed in our inbox and we'll get back to you within <strong>24 hours</strong> — usually much sooner.</p>
+
+    <div class="next-steps">
+      <p>What happens next</p>
+      <ul>
+        <li>We'll review your business and service area</li>
+        <li>You'll get a personalized demo walkthrough</li>
+        <li>BoB starts capturing leads from day one</li>
+      </ul>
+    </div>
+
+    <a href="https://bobthelobstar.com" class="btn-back">← Back to BoB The Lobstar</a>
+
+    <hr class="divider" />
+
+    <div class="contact-line">
+      Need us faster? <a href="mailto:aibob@bobthelobstar.com">aibob@bobthelobstar.com</a> or call/text <a href="tel:+17023373494">(702) 337-3494</a>
+    </div>
+
+  </div>
+</body>
+</html>
