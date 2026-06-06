@@ -68,13 +68,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 0.6rem 2rem;
     backdrop-filter: blur(20px);
     background: rgba(5,10,6,0.92);
     border-bottom: 1px solid var(--glass-border);
   }
   .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
-  .nav-logo img { height: 36px; width: auto; display: block; }
+  .nav-logo img {
+    height: 144px;
+    width: auto;
+    display: block;
+    animation: floatLogo 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 16px rgba(0,255,65,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+  }
+  @keyframes floatLogo {
+    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 16px rgba(0,255,65,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+    50%      { transform: translateY(-8px); filter: drop-shadow(0 0 28px rgba(0,255,65,0.8)) drop-shadow(0 18px 32px rgba(0,0,0,0.5)); }
+  }
   .nav-logo span { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--neon); letter-spacing: 0.03em; font-weight: 700; }
 
   .nav-links {
@@ -171,7 +181,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 8rem 1.5rem 5rem;
+    padding: 11rem 1.5rem 5rem;
     position: relative;
     overflow: hidden;
   }
@@ -329,6 +339,10 @@
   @keyframes floatBob {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
+  }
+  @keyframes floatPink {
+    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+    50%      { transform: translateY(-10px); filter: drop-shadow(0 0 36px rgba(255,45,155,1)) drop-shadow(0 20px 32px rgba(0,0,0,0.5)); }
   }
   .chat-cta-arrow {
     display: inline-flex;
@@ -764,14 +778,15 @@
   }
 
   @media (max-width: 768px) {
-    nav { padding: 0.8rem 1rem; }
+    nav { padding: 0.4rem 1rem; }
+    .nav-logo img { height: 80px; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .nav-hamburger { display: flex; }
 
     .price-card.featured { transform: scale(1); }
 
-    #hero { padding: 6rem 1rem 3rem; }
+    #hero { padding: 7rem 1rem 3rem; }
     h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
     .hero-sub { font-size: 1rem; }
     .hero-btns { flex-direction: column; align-items: stretch; }
@@ -866,7 +881,7 @@
     </div>
     <!-- Chat Shortcut Card -->
     <div class="value-card chat-shortcut" onclick="document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Chat with BoB">
-      <div class="value-card-icon"><img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB" style="height:2.2rem;width:auto;filter:drop-shadow(0 0 8px rgba(255,45,155,0.7));"></div>
+      <div class="value-card-icon"><img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB" style="height:8.8rem;width:auto;animation:floatPink 3s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));"></div>
       <h3>Still have questions?</h3>
       <p>BoB is standing by right now. Get instant answers on pricing, features, and how to grow your business — no waiting, no sales pitch.</p>
       <div class="chat-cta-arrow">
