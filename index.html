@@ -285,27 +285,17 @@
     transition: transform 0.3s, border-color 0.3s;
     text-align: left;
   }
-  .value-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--neon);
-  }
-  .value-card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
+  .value-card:hover { transform: translateY(-4px); border-color: var(--neon); }
+  .value-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
   .value-card h3 {
     font-family: 'Syne', sans-serif;
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
     color: var(--neon);
   }
-  .value-card p {
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
+  .value-card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
 
-  /* ── Chat Shortcut Card (pink/magenta) ───────── */
+  /* ── Chat Shortcut Card ──────────────────────── */
   .value-card.chat-shortcut {
     background: rgba(255,45,155,0.06);
     border: 1px solid rgba(255,45,155,0.35);
@@ -313,6 +303,7 @@
     position: relative;
     overflow: hidden;
     transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    animation: shimmerBorder 3s ease-in-out infinite;
   }
   .value-card.chat-shortcut::before {
     content: '';
@@ -325,24 +316,16 @@
     border-color: var(--pink);
     box-shadow: 0 0 40px var(--pink-glow), 0 8px 32px rgba(255,45,155,0.2);
     transform: translateY(-6px) scale(1.02);
+    animation: none;
   }
   .value-card.chat-shortcut h3 {
     color: var(--pink);
     text-shadow: 0 0 20px rgba(255,45,155,0.5);
     font-size: 1.05rem;
   }
-  .value-card.chat-shortcut .value-card-icon {
-    font-size: 2.2rem;
-    filter: drop-shadow(0 0 8px rgba(255,45,155,0.7));
-    animation: floatBob 3s ease-in-out infinite;
-  }
-  @keyframes floatBob {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  @keyframes floatPink {
-    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
-    50%      { transform: translateY(-10px); filter: drop-shadow(0 0 36px rgba(255,45,155,1)) drop-shadow(0 20px 32px rgba(0,0,0,0.5)); }
+  @keyframes shimmerBorder {
+    0%,100% { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
+    50%      { box-shadow: 0 0 28px rgba(255,45,155,0.6), 0 0 60px rgba(255,45,155,0.2); }
   }
   .chat-cta-arrow {
     display: inline-flex;
@@ -357,36 +340,22 @@
     transition: gap 0.2s;
   }
   .value-card.chat-shortcut:hover .chat-cta-arrow { gap: 0.7rem; }
-  .chat-cta-arrow svg {
-    width: 16px; height: 16px;
-    transition: transform 0.2s;
-  }
+  .chat-cta-arrow svg { width: 16px; height: 16px; transition: transform 0.2s; }
   .value-card.chat-shortcut:hover .chat-cta-arrow svg { transform: translateX(3px); }
 
-  /* Shimmer border animation on chat card */
-  @keyframes shimmerBorder {
-    0%   { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
-    50%  { box-shadow: 0 0 28px rgba(255,45,155,0.6), 0 0 60px rgba(255,45,155,0.2); }
-    100% { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
+  @keyframes floatBob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
   }
-  .value-card.chat-shortcut {
-    animation: shimmerBorder 3s ease-in-out infinite;
+  @keyframes floatPink {
+    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
+    50%      { transform: translateY(-10px); filter: drop-shadow(0 0 36px rgba(255,45,155,1)) drop-shadow(0 20px 32px rgba(0,0,0,0.5)); }
   }
-  .value-card.chat-shortcut:hover {
-    animation: none;
-  }
-
   @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
   /* ── Section Styling ─────────────────────────── */
-  .section-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
-  section {
-    padding: 7rem 1.5rem;
-  }
+  .section-content { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  section { padding: 7rem 1.5rem; }
   section h2 {
     font-family: 'Syne', sans-serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
@@ -394,385 +363,250 @@
     margin-bottom: 1rem;
     color: var(--text);
   }
-  section .section-sub {
-    font-size: 1.1rem;
-    color: var(--text-dim);
-    max-width: 600px;
-    margin-bottom: 3rem;
-  }
+  section .section-sub { font-size: 1.1rem; color: var(--text-dim); max-width: 600px; margin-bottom: 3rem; }
 
   /* Why You Need This */
-  #why-you-need {
-    background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%);
-  }
-  .pain-points {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .pain-point {
-    background: var(--card-bg);
-    border-left: 4px solid var(--danger);
-    padding: 1.5rem;
-    border-radius: 8px;
-  }
-  .pain-point h3 {
-    color: var(--danger);
-    margin-bottom: 0.5rem;
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-  }
+  #why-you-need { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
+  .pain-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .pain-point { background: var(--card-bg); border-left: 4px solid var(--danger); padding: 1.5rem; border-radius: 8px; }
+  .pain-point h3 { color: var(--danger); margin-bottom: 0.5rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; }
   .pain-point p { font-size: 0.95rem; color: var(--text-dim); }
 
   /* How It Works */
-  #how-it-works {
-    background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%);
-  }
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .step {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    position: relative;
-    counter-increment: step-counter;
-  }
+  #how-it-works { background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%); }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; counter-reset: step-counter; }
+  .step { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; counter-increment: step-counter; }
   .step::before {
     content: counter(step-counter);
-    position: absolute;
-    top: -15px;
-    left: 2rem;
-    background: var(--neon);
-    color: #000;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-family: 'Syne', sans-serif;
+    position: absolute; top: -15px; left: 2rem;
+    background: var(--neon); color: #000;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: 'Syne', sans-serif;
   }
-  .steps { counter-reset: step-counter; }
-  .step h3 {
-    margin-top: 1rem;
-    color: var(--neon);
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-  }
+  .step h3 { margin-top: 1rem; color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.1rem; }
   .step p { font-size: 0.95rem; color: var(--text-dim); margin-top: 0.5rem; }
 
   /* Features */
-  #features {
-    background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%);
-  }
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .feature-item {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    transition: all 0.3s;
-  }
-  .feature-item:hover {
-    border-color: var(--neon);
-    transform: translateY(-4px);
-  }
+  #features { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
+  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .feature-item { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s; }
+  .feature-item:hover { border-color: var(--neon); transform: translateY(-4px); }
   .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  .feature-item h3 {
-    color: var(--neon);
-    margin-bottom: 0.75rem;
-    font-family: 'Syne', sans-serif;
-    font-size: 1.15rem;
-  }
+  .feature-item h3 { color: var(--neon); margin-bottom: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.15rem; }
   .feature-item p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
 
   /* Industries */
-  #industries {
-    background: linear-gradient(135deg, transparent 0%, rgba(0,255,65,0.04) 100%);
-  }
-  .industry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-  .industry-badge {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    padding: 1.5rem;
-    border-radius: 10px;
-    text-align: center;
-    transition: all 0.3s;
-    cursor: default;
-  }
-  .industry-badge:hover {
-    border-color: var(--neon);
-    transform: scale(1.05);
-  }
+  #industries { background: linear-gradient(135deg, transparent 0%, rgba(0,255,65,0.04) 100%); }
+  .industry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  .industry-badge { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 10px; text-align: center; transition: all 0.3s; cursor: default; }
+  .industry-badge:hover { border-color: var(--neon); transform: scale(1.05); }
   .industry-badge-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-  .industry-badge-name {
-    color: var(--text);
-    font-weight: 600;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-  }
+  .industry-badge-name { color: var(--text); font-weight: 600; font-family: 'Syne', sans-serif; font-size: 0.95rem; }
 
   /* Pricing */
-  #pricing {
-    background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%);
-  }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-  .price-card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    padding: 2.5rem;
-    border-radius: 12px;
-    position: relative;
-    transition: all 0.3s;
-  }
-  .price-card.featured {
-    border-color: var(--neon);
-    box-shadow: 0 0 30px rgba(0,255,65,0.15);
-    transform: scale(1.03);
-  }
+  #pricing { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .price-card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2.5rem; border-radius: 12px; position: relative; transition: all 0.3s; }
+  .price-card.featured { border-color: var(--neon); box-shadow: 0 0 30px rgba(0,255,65,0.15); transform: scale(1.03); }
   .price-card:hover { border-color: var(--neon); }
-  .price-tag {
-    position: absolute;
-    top: -12px;
-    right: 2rem;
-    background: var(--neon);
-    color: #000;
-    padding: 0.4rem 0.9rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    display: none;
-  }
+  .price-tag { position: absolute; top: -12px; right: 2rem; background: var(--neon); color: #000; padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: none; }
   .price-card.featured .price-tag { display: block; }
-  .price-card h3 {
-    color: var(--neon);
-    font-family: 'Syne', sans-serif;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
-  .price-card-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    margin-bottom: 1.5rem;
-  }
-  .price-amount {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--neon);
-    margin-bottom: 0.5rem;
-  }
+  .price-card h3 { color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .price-card-subtitle { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+  .price-amount { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--neon); margin-bottom: 0.5rem; }
   .price-amount span { font-size: 1.1rem; }
-  .price-billing {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    margin-bottom: 1.5rem;
-  }
-  .price-features {
-    list-style: none;
-    margin-bottom: 2rem;
-  }
-  .price-features li {
-    padding: 0.75rem 0;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .price-features li:before {
-    content: '✓ ';
-    color: var(--neon);
-    font-weight: 700;
-    margin-right: 0.5rem;
-  }
-  .price-btn {
-    width: 100%;
-    padding: 0.85rem;
-    border-radius: 8px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.95rem;
-  }
-  .price-btn.primary {
-    background: var(--neon);
-    color: #000;
-  }
+  .price-billing { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+  .price-features { list-style: none; margin-bottom: 2rem; }
+  .price-features li { padding: 0.75rem 0; font-size: 0.9rem; color: var(--text-dim); border-bottom: 1px solid var(--glass-border); }
+  .price-features li:before { content: '✓ '; color: var(--neon); font-weight: 700; margin-right: 0.5rem; }
+  .price-btn { width: 100%; padding: 0.85rem; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.95rem; }
+  .price-btn.primary { background: var(--neon); color: #000; }
   .price-btn.primary:hover { box-shadow: 0 0 36px var(--neon-glow); transform: translateY(-2px); }
-  .price-btn.secondary {
-    background: transparent;
-    color: var(--neon);
-    border: 1px solid var(--neon);
-  }
+  .price-btn.secondary { background: transparent; color: var(--neon); border: 1px solid var(--neon); }
   .price-btn.secondary:hover { background: var(--glass); }
 
   /* ROI */
-  #roi-section {
-    background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%);
-  }
-  .roi-card {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .roi-item {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    padding: 2rem;
-    border-radius: 12px;
-  }
-  .roi-item h3 {
-    color: var(--neon);
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-  .roi-stat {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--neon);
-    margin-bottom: 0.5rem;
-  }
+  #roi-section { background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%); }
+  .roi-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .roi-item { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 12px; }
+  .roi-item h3 { color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 1rem; }
+  .roi-stat { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--neon); margin-bottom: 0.5rem; }
   .roi-item p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
 
   /* Social Proof */
-  #proof {
-    background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%);
+  #proof { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
+  .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .proof-card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 12px; }
+  .proof-card p { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1.5rem; line-height: 1.7; }
+  .proof-author { font-weight: 600; color: var(--neon); font-family: 'Syne', sans-serif; font-size: 0.95rem; }
+  .proof-role { font-size: 0.8rem; color: var(--text-dim); }
+
+  /* ── Demo Request Form ───────────────────────── */
+  #book {
+    background: linear-gradient(135deg, rgba(0,255,65,0.04) 0%, rgba(255,45,155,0.03) 100%);
+    position: relative;
+    overflow: hidden;
   }
-  .proof-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+  #book::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(ellipse, rgba(0,255,65,0.06) 0%, transparent 60%);
+    pointer-events: none;
   }
-  .proof-card {
+  .book-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .book-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .book-header h2 { color: var(--text); margin-bottom: 0.75rem; }
+  .book-header p { color: var(--text-dim); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+  .form-card {
     background: var(--card-bg);
     border: 1px solid var(--glass-border);
-    padding: 2rem;
-    border-radius: 12px;
+    border-radius: 16px;
+    padding: 2.5rem;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
   }
-  .proof-card p {
-    font-size: 0.95rem;
-    color: var(--text-dim);
-    margin-bottom: 1.5rem;
-    line-height: 1.7;
-  }
-  .proof-author {
-    font-weight: 600;
-    color: var(--neon);
-    font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-  }
-  .proof-role {
-    font-size: 0.8rem;
-    color: var(--text-dim);
+  .form-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(0,255,65,0.04) 0%, rgba(255,45,155,0.02) 100%);
+    pointer-events: none;
   }
 
-  /* Footer */
-  footer {
-    background: var(--bg2);
-    border-top: 1px solid var(--glass-border);
-    padding: 3rem 1.5rem 2rem;
-  }
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
+  .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 3rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.2rem;
   }
-  .footer-col h4 {
-    color: var(--neon);
-    margin-bottom: 1rem;
+  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background: rgba(0,255,65,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: rgba(122,155,126,0.5); }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 0 3px rgba(0,255,65,0.1);
+  }
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300ff41' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+  .form-select option { background: #0a150b; color: var(--text); }
+  .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--neon);
+    color: #000;
     font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
-  .footer-col a, .footer-col p {
-    display: block;
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    text-decoration: none;
-    margin-bottom: 0.75rem;
+  .form-submit:hover {
+    box-shadow: 0 0 40px var(--neon-glow), 0 6px 24px rgba(0,0,0,0.4);
+    transform: translateY(-2px);
   }
-  .footer-col a:hover { color: var(--neon); }
-  .footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 2rem;
-    border-top: 1px solid var(--glass-border);
+
+  .form-note {
     text-align: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+  }
+  .book-phone {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
     color: var(--text-dim);
   }
+  .book-phone a { color: var(--neon); font-weight: 700; text-decoration: none; }
+  .book-phone a:hover { text-decoration: underline; }
+
+  /* Footer */
+  footer { background: var(--bg2); border-top: 1px solid var(--glass-border); padding: 3rem 1.5rem 2rem; }
+  .footer-content {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem; margin-bottom: 2rem;
+  }
+  .footer-col h4 { color: var(--neon); margin-bottom: 1rem; font-family: 'Syne', sans-serif; font-size: 0.95rem; }
+  .footer-col a, .footer-col p { display: block; font-size: 0.85rem; color: var(--text-dim); text-decoration: none; margin-bottom: 0.75rem; }
+  .footer-col a:hover { color: var(--neon); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--glass-border); text-align: center; font-size: 0.85rem; color: var(--text-dim); }
 
   /* ── Back-to-Top Arrow ───────────────────────── */
   #back-to-top {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 2rem; right: 2rem;
     z-index: 200;
-    width: 50px;
-    height: 50px;
+    width: 50px; height: 50px;
     border-radius: 50%;
     background: var(--pink);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     box-shadow: 0 0 20px var(--pink-glow), 0 4px 16px rgba(0,0,0,0.4);
     transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0; pointer-events: none;
     transform: translateY(12px);
   }
-  #back-to-top.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-  #back-to-top:hover {
-    box-shadow: 0 0 36px var(--pink-glow), 0 6px 24px rgba(0,0,0,0.5);
-    transform: translateY(-3px);
-  }
-  #back-to-top svg {
-    width: 22px;
-    height: 22px;
-    stroke: #fff;
-    stroke-width: 2.5;
-    fill: none;
-  }
+  #back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #back-to-top:hover { box-shadow: 0 0 36px var(--pink-glow), 0 6px 24px rgba(0,0,0,0.5); transform: translateY(-3px); }
+  #back-to-top svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 2.5; fill: none; }
 
   /* ── Responsive ──────────────────────────────── */
-
-  /* Large desktop: 4-col value cards look fine */
   @media (max-width: 1024px) {
     .value-cards { grid-template-columns: repeat(2, 1fr); }
   }
@@ -785,7 +619,6 @@
     .nav-hamburger { display: flex; }
 
     .price-card.featured { transform: scale(1); }
-
     #hero { padding: 7rem 1rem 3rem; }
     h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
     .hero-sub { font-size: 1rem; }
@@ -793,8 +626,6 @@
     .btn-primary, .btn-secondary { width: 100%; text-align: center; }
 
     .value-cards { grid-template-columns: 1fr; }
-    .value-card { text-align: left; }
-
     section { padding: 4.5rem 1rem; }
     section h2 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
 
@@ -805,6 +636,9 @@
     .roi-card { grid-template-columns: 1fr; }
     .proof-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
+
+    .form-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 1.5rem; }
 
     #back-to-top { bottom: 1.2rem; right: 1.2rem; width: 44px; height: 44px; }
   }
@@ -830,6 +664,7 @@
   <a href="#why-you-need" onclick="closeMobileNav()">Why You Need This</a>
   <a href="#industries" onclick="closeMobileNav()">Industries</a>
   <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a href="#book" onclick="closeMobileNav()">Get a Demo 🦞</a>
   <a href="#bob-chat-embed" onclick="closeMobileNav()">Chat with BoB 💬</a>
   <a href="#pricing" class="nav-cta" onclick="closeMobileNav()">Get Started</a>
 </div>
@@ -844,6 +679,7 @@
     <li><a href="#why-you-need">Why You Need This</a></li>
     <li><a href="#industries">Industries</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#book">Get a Demo</a></li>
   </ul>
   <a class="nav-cta" href="#pricing">Get Started</a>
   <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
@@ -881,7 +717,9 @@
     </div>
     <!-- Chat Shortcut Card -->
     <div class="value-card chat-shortcut" onclick="document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Chat with BoB">
-      <div class="value-card-icon"><img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB" style="height:8.8rem;width:auto;animation:floatPink 3s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));"></div>
+      <div class="value-card-icon">
+        <img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB" style="height:8.8rem;width:auto;animation:floatPink 3s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
+      </div>
       <h3>Still have questions?</h3>
       <p>BoB is standing by right now. Get instant answers on pricing, features, and how to grow your business — no waiting, no sales pitch.</p>
       <div class="chat-cta-arrow">
@@ -1011,38 +849,14 @@
     <h2>Built for High-Touch Service Industries</h2>
     <p class="section-sub">BoB specializes in businesses where every missed inquiry is lost revenue.</p>
     <div class="industry-grid">
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🔧</div>
-        <div class="industry-badge-name">Plumbing</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">❄️</div>
-        <div class="industry-badge-name">HVAC</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">⚡</div>
-        <div class="industry-badge-name">Electrical</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🌿</div>
-        <div class="industry-badge-name">Landscaping</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🏠</div>
-        <div class="industry-badge-name">Roofing</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🪟</div>
-        <div class="industry-badge-name">Window Cleaning</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🎨</div>
-        <div class="industry-badge-name">Painting</div>
-      </div>
-      <div class="industry-badge">
-        <div class="industry-badge-icon">🧹</div>
-        <div class="industry-badge-name">Cleaning</div>
-      </div>
+      <div class="industry-badge"><div class="industry-badge-icon">🔧</div><div class="industry-badge-name">Plumbing</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">❄️</div><div class="industry-badge-name">HVAC</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">⚡</div><div class="industry-badge-name">Electrical</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">🌿</div><div class="industry-badge-name">Landscaping</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">🏠</div><div class="industry-badge-name">Roofing</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">🪟</div><div class="industry-badge-name">Window Cleaning</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">🎨</div><div class="industry-badge-name">Painting</div></div>
+      <div class="industry-badge"><div class="industry-badge-icon">🧹</div><div class="industry-badge-name">Cleaning</div></div>
     </div>
   </div>
 </section>
@@ -1132,8 +946,8 @@
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--glass); border-radius: 12px; border: 1px solid var(--glass-border);">
-      <p style="font-size: 1rem; color: var(--text-dim);">🎁 <strong>Special Offer:</strong> Sign up this month and get your first month 50% off. Plus, 14-day free trial with no credit card required.</p>
+    <div style="text-align:center;margin-top:3rem;padding:2rem;background:var(--glass);border-radius:12px;border:1px solid var(--glass-border);">
+      <p style="font-size:1rem;color:var(--text-dim);">🎁 <strong>Special Offer:</strong> Sign up this month and get your first month 50% off. Plus, 14-day free trial with no credit card required.</p>
     </div>
   </div>
 </section>
@@ -1170,11 +984,96 @@
          data-bob-sub="Ask about pricing, features, how BoB captures leads, or schedule a demo. BoB answers instantly.">
 </section>
 
+<!-- ── Demo Request Form ───────────────────────── -->
+<section id="book">
+  <div class="book-inner">
+    <div class="book-header">
+      <h2>See BoB in Action</h2>
+      <p>Fill out the form and we'll set up a personalized demo tailored to your business and service area — usually within 24 hours.</p>
+    </div>
+
+    <div class="form-card">
+      <form name="bob-leads" method="POST" action="https://formsubmit.co/aibob@bobthelobstar.com">
+        <input type="hidden" name="_subject" value="New BoB Demo Request" />
+        <input type="hidden" name="_next" value="https://bobthelobstar.com/thanks.html" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <p style="display:none"><label>Don't fill this: <input name="_honey" /></label></p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="name">Full Name *</label>
+            <input id="name" name="name" type="text" required placeholder="Jane Smith" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone (Call / Text)</label>
+            <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="company">Business Name</label>
+            <input id="company" name="company" type="text" placeholder="Your business, LLC" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="industry">Your Industry</label>
+            <select id="industry" name="industry" class="form-select">
+              <option value="">Select your trade...</option>
+              <option>Plumbing</option>
+              <option>HVAC</option>
+              <option>Electrical</option>
+              <option>Landscaping / Lawn Care</option>
+              <option>Roofing</option>
+              <option>Window Cleaning</option>
+              <option>Painting</option>
+              <option>House Cleaning</option>
+              <option>Pest Control</option>
+              <option>Handyman / General Contracting</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="missed_leads">Leads Missed per Month</label>
+            <select id="missed_leads" name="missed_leads" class="form-select">
+              <option value="">Select range...</option>
+              <option>Not sure / just getting started</option>
+              <option>1–5 missed leads/month</option>
+              <option>6–15 missed leads/month</option>
+              <option>15–30 missed leads/month</option>
+              <option>30+ missed leads/month</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group full" style="margin-bottom:1.5rem;">
+          <label class="form-label" for="message">What would you like to automate first?</label>
+          <textarea id="message" name="message" rows="4" placeholder="e.g. I want BoB to answer texts and Facebook messages when I'm on jobs, auto-book estimates, and start getting more Google reviews automatically..." class="form-textarea"></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          Request My Free Demo
+          <span style="font-size:1.1rem;">→</span>
+        </button>
+        <p class="form-note">We respond within 24 hrs — usually same day. No credit card required.</p>
+      </form>
+    </div>
+
+    <div class="book-phone">
+      Prefer to talk first? Call or text us at <a href="tel:+17023373494">702-337-3494</a>
+    </div>
+  </div>
+</section>
+
 <!-- CTA Footer -->
-<section style="background: linear-gradient(135deg, rgba(0,255,65,0.08) 0%, transparent 100%); text-align: center;">
+<section style="background:linear-gradient(135deg,rgba(0,255,65,0.08) 0%,transparent 100%);text-align:center;">
   <div class="section-content">
-    <h2 style="margin-bottom: 1rem;">Stop Leaving Money on the Table</h2>
-    <p class="section-sub" style="max-width: 600px; margin: 0 auto 2rem;">Every day without BoB is another day you're losing leads to faster competitors. Start your 14-day free trial today.</p>
+    <h2 style="margin-bottom:1rem;">Stop Leaving Money on the Table</h2>
+    <p class="section-sub" style="max-width:600px;margin:0 auto 2rem;">Every day without BoB is another day you're losing leads to faster competitors. Start your 14-day free trial today.</p>
     <a href="#pricing" class="btn-primary">Get Started Now</a>
   </div>
 </section>
@@ -1197,6 +1096,7 @@
     <div class="footer-col">
       <h4>Company</h4>
       <a href="mailto:aibob@bobthelobstar.com">Email Us</a>
+      <a href="tel:+17023373494">702-337-3494</a>
       <p>Phoenix, Arizona<br>Available 24/7</p>
     </div>
   </div>
@@ -1220,8 +1120,8 @@
     observer.observe(el);
   });
 
-  // Track CTA clicks
-  document.querySelectorAll('.btn-primary, .price-btn').forEach(function(btn) {
+  // Track CTA + form submit clicks
+  document.querySelectorAll('.btn-primary, .price-btn, .form-submit').forEach(function(btn) {
     btn.addEventListener('click', function() {
       fbq('track', 'ClickButton', { content_name: this.innerText.trim() });
       ttq.track('ClickButton', { content_name: this.innerText.trim() });
@@ -1245,11 +1145,7 @@
   // Back-to-top visibility
   var backToTop = document.getElementById('back-to-top');
   window.addEventListener('scroll', function() {
-    if (window.scrollY > 400) {
-      backToTop.classList.add('visible');
-    } else {
-      backToTop.classList.remove('visible');
-    }
+    backToTop.classList.toggle('visible', window.scrollY > 400);
   });
 
   // Mobile nav toggle
@@ -1261,10 +1157,8 @@
     document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
   }
   function closeMobileNav() {
-    var nav = document.getElementById('mobileNav');
-    var btn = document.getElementById('hamburger');
-    nav.classList.remove('open');
-    btn.classList.remove('open');
+    document.getElementById('mobileNav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
     document.body.style.overflow = '';
   }
 
