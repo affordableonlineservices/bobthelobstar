@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUTBOL - Play, Track, Connect</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo img {
+            height: 150px;
+            width: auto;
+            animation: logoFloat 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .logo::before {
+            content: "";
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .language-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            margin-left: 2rem;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #1e3c72;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .how-it-works {
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .pricing {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-top: 4px solid #ff6b35;
+        }
+
+        .pricing-card h3 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: #ff6b35;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-details {
+            text-align: left;
+            margin: 2rem 0;
+            color: #555;
+        }
+
+        .price-details li {
+            list-style: none;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-details li::before {
+            content: "✓ ";
+            color: #7CB342;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .signup-section {
+            background: white;
+            padding: 4rem 2rem;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        #card-element {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #ff6b35;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .social-proof {
+            background: #f8f9fa;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            header .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            nav {
+                margin-top: 1rem;
+                display: none;
+            }
+
+            nav a {
+                margin-left: 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="futbol.png" alt="FUTBOL Logo">
+            </a>
+            <nav>
+                <a href="#features" data-en="Features" data-es="Características">Features</a>
+                <a href="#how" data-en="How It Works" data-es="Cómo Funciona">How It Works</a>
+                <a href="#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+                <a href="#signup" data-en="Join Now" data-es="Únete Ahora">Join Now</a>
+                <button class="language-toggle" id="langToggle" onclick="toggleLanguage()">Español</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1 data-en="Your Soccer Community Awaits" data-es="Tu Comunidad de Fútbol Espera">Your Soccer Community Awaits</h1>
+            <p data-en="Play, track performance, connect with players, and access matches anytime" data-es="Juega, rastrea tu desempeño, conecta con jugadores y accede a partidos en cualquier momento">Play, track performance, connect with players, and access matches anytime</p>
+            <button class="cta-button" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})" data-en="Become an Early Adopter" data-es="Conviértete en Adoptante Temprano">
+                Become an Early Adopter
+            </button>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-en="What You Get" data-es="Lo Que Obtienes">What You Get</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">📊</div>
+                    <h3 data-en="Performance Tracking" data-es="Seguimiento de Desempeño">Performance Tracking</h3>
+                    <p data-en="Track your goals, assists, positions, and progress with detailed stats" data-es="Rastrea tus goles, asistencias, posiciones y progreso con estadísticas detalladas">Track your goals, assists, positions, and progress with detailed stats</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🌐</div>
+                    <h3 data-en="Soccer Community" data-es="Comunidad de Fútbol">Soccer Community</h3>
+                    <p data-en="Connect with players at your skill level in your local area" data-es="Conecta con jugadores de tu nivel de habilidad en tu área local">Connect with players at your skill level in your local area</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚽</div>
+                    <h3 data-en="Match Discovery" data-es="Descubrimiento de Partidos">Match Discovery</h3>
+                    <p data-en="Find and book games anytime, anywhere with AI-powered scheduling" data-es="Encuentra y reserva juegos en cualquier momento y lugar con programación impulsada por IA">Find and book games anytime, anywhere with AI-powered scheduling</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🏆</div>
+                    <h3 data-en="Leaderboards" data-es="Tablas de Clasificación">Leaderboards</h3>
+                    <p data-en="Compete on local and global rankings based on performance" data-es="Compite en clasificaciones locales y globales según tu desempeño">Compete on local and global rankings based on performance</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <h3 data-en="Mobile First" data-es="Enfoque Móvil">Mobile First</h3>
+                    <p data-en="Access everything from your phone, anytime, anywhere" data-es="Accede a todo desde tu teléfono, en cualquier momento y lugar">Access everything from your phone, anytime, anywhere</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🤖</div>
+                    <h3 data-en="AI Coaching" data-es="Entrenamiento con IA">AI Coaching</h3>
+                    <p data-en="Get personalized insights and improvement recommendations" data-es="Obtén información personalizada y recomendaciones de mejora">Get personalized insights and improvement recommendations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how" class="section how-it-works">
+        <div class="container">
+            <h2 data-en="How It Works" data-es="Cómo Funciona">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 data-en="Sign Up" data-es="Regístrate">Sign Up</h3>
+                    <p data-en="Create your profile and tell us about your soccer experience" data-es="Crea tu perfil y cuéntanos sobre tu experiencia en el fútbol">Create your profile and tell us about your soccer experience</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 data-en="Build Your Profile" data-es="Construye Tu Perfil">Build Your Profile</h3>
+                    <p data-en="Add your stats, positions, and connect with local players" data-es="Agrega tus estadísticas, posiciones y conecta con jugadores locales">Add your stats, positions, and connect with local players</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 data-en="Find Matches" data-es="Encuentra Partidos">Find Matches</h3>
+                    <p data-en="Browse available games or let AI match you with teams" data-es="Explora juegos disponibles o deja que la IA te empareje con equipos">Browse available games or let AI match you with teams</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 data-en="Track & Grow" data-es="Rastrea y Crece">Track & Grow</h3>
+                    <p data-en="Monitor your performance and improve with AI insights" data-es="Monitorea tu desempeño y mejora con información de IA">Monitor your performance and improve with AI insights</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section pricing">
+        <div class="container">
+            <h2 data-en="Early Adopter Special" data-es="Especial para Adoptantes Tempranos">Early Adopter Special</h2>
+            <div class="pricing-card">
+                <span class="badge" data-en="LIMITED TIME OFFER" data-es="OFERTA POR TIEMPO LIMITADO">LIMITED TIME OFFER</span>
+                <h3 data-en="Founding Member" data-es="Miembro Fundador">Founding Member</h3>
+                <div class="price">$5<span style="font-size: 1.5rem;">/month</span></div>
+                <p class="price-period" data-en="Lock in this price for life. Regular price will be $9.99" data-es="Fija este precio de por vida. El precio regular será $9.99">Lock in this price for life. Regular price will be $9.99</p>
+                <ul class="price-details">
+                    <li data-en="Full community access" data-es="Acceso completo a la comunidad">Full community access</li>
+                    <li data-en="Performance tracking" data-es="Seguimiento de desempeño">Performance tracking</li>
+                    <li data-en="Match discovery" data-es="Descubrimiento de partidos">Match discovery</li>
+                    <li data-en="AI coaching features" data-es="Características de entrenamiento con IA">AI coaching features</li>
+                    <li data-en="Lifetime founding member badge" data-es="Insignia de miembro fundador de por vida">Lifetime founding member badge</li>
+                    <li data-en="Priority support" data-es="Soporte prioritario">Priority support</li>
+                </ul>
+                <button class="cta-button" onclick="document.getElementById('signup').scrollIntoView({behavior: 'smooth'})" data-en="Get Founding Member Access" data-es="Obtén Acceso de Miembro Fundador">
+                    Get Founding Member Access
+                </button>
+            </div>
+            <div class="testimonial">
+                <p data-en="I've been looking for a way to meet local soccer players and track my improvement. This is exactly what I needed!" data-es="He estado buscando una manera de conocer jugadores de fútbol locales y rastrear mi mejora. ¡Esto es exactamente lo que necesitaba!">"I've been looking for a way to meet local soccer players and track my improvement. This is exactly what I needed!"</p>
+                <div class="testimonial-author">- Mamerto Perez</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup" class="section signup-section">
+        <div class="container">
+            <h2 data-en="Join the Revolution" data-es="Únete a la Revolución">Join the Revolution</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem; font-size: 1.1rem;" data-en="Limited spots available for early adopters. Lock in $5/month pricing for life." data-es="Spots limitados disponibles para adoptantes tempranos. Fija el precio de $5/mes de por vida.">
+                Limited spots available for early adopters. Lock in $5/month pricing for life.
+            </p>
+            <div style="text-align: center; padding: 2rem;">
+                <a href="https://buy.stripe.com/eVqeVd87U3AJ0ji6J55Ne01" class="cta-button" style="display: inline-block; text-decoration: none; color: white;" data-en="Unlock Founding Member - $5/month" data-es="Desbloquea Miembro Fundador - $5/mes">
+                    Unlock Founding Member - $5/month
+                </a>
+                <p style="margin-top: 1.5rem; color: #999; font-size: 0.9rem;" data-en="Secure payment powered by Stripe" data-es="Pago seguro impulsado por Stripe">Secure payment powered by Stripe</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-proof">
+        <div class="container">
+            <h2 data-en="Join Our Growing Community" data-es="Únete a Nuestra Comunidad en Crecimiento">Join Our Growing Community</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">250K+</div>
+                    <div class="stat-label" data-en="Soccer Players in Arizona" data-es="Jugadores de Fútbol en Arizona">Soccer Players in Arizona</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label" data-en="Cities Coming Soon" data-es="Ciudades Próximamente">Cities Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 FUTBOL. <span data-en="All rights reserved" data-es="Todos los derechos reservados">All rights reserved</span>. | <a href="#" style="color: #ff6b35;" data-en="Privacy Policy" data-es="Política de Privacidad">Privacy Policy</a> | <a href="#" style="color: #ff6b35;" data-en="Terms of Service" data-es="Términos de Servicio">Terms of Service</a></p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;" data-en="Built by soccer lovers, for soccer lovers." data-es="Construido por amantes del fútbol, para amantes del fútbol.">Built by soccer lovers, for soccer lovers.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        let currentLanguage = localStorage.getItem('futbolLanguage') || 'en';
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+            localStorage.setItem('futbolLanguage', currentLanguage);
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-en][data-es]');
+            elements.forEach(el => {
+                const text = currentLanguage === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-es');
+                el.textContent = text;
+            });
+
+            // Update placeholders
+            const placeholders = document.querySelectorAll('[data-placeholder-en][data-placeholder-es]');
+            placeholders.forEach(el => {
+                const placeholder = currentLanguage === 'en' ? el.getAttribute('data-placeholder-en') : el.getAttribute('data-placeholder-es');
+                el.placeholder = placeholder;
+            });
+
+            // Update select default option
+            const selectDefault = document.querySelector('select option[value=""]');
+            if (selectDefault) {
+                selectDefault.textContent = currentLanguage === 'en' ? 'Select your level...' : 'Selecciona tu nivel...';
+            }
+
+            const langToggle = document.getElementById('langToggle');
+            langToggle.textContent = currentLanguage === 'en' ? 'Español' : 'English';
+        }
+
+        // Initialize language on page load
+        window.addEventListener('load', () => {
+            updateLanguage();
+        });
+
+
+    </script>
+</body>
+</html>
