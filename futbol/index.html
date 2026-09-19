@@ -1297,8 +1297,8 @@
         });
 
         // ---------- Early Access Form ----------
-        // NOTE: the form currently confirms in the browser and stores the signup locally.
-        // To receive signups by email/CRM, wire this submit handler to your endpoint.
+        // Submits to the FUTBOL signup form backend; every signup is logged
+        // to the signup sheet and forwarded to the inbox.
         document.getElementById('earlyAccessForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('eaName').value.trim();
@@ -1306,11 +1306,19 @@
             const role = document.getElementById('eaRole').value;
             const msg = document.getElementById('eaMessage');
 
-            try {
-                const signups = JSON.parse(localStorage.getItem('futbolEarlyAccess') || '[]');
-                signups.push({ name, email, role, at: new Date().toISOString() });
-                localStorage.setItem('futbolEarlyAccess', JSON.stringify(signups));
-            } catch (err) { /* storage unavailable — still confirm */ }
+            const params = new URLSearchParams();
+            params.append('entry.632329092', name);
+                params.append('entry.1069339313', email);
+            params.append('entry.244322644', role);
+                                    // Fire-and-forget: the endpoint doesn't allow reading the response,
+                        // so we confirm optimistically like before.
+                        fetch('https://docs.google.com/forms/d/e/1FAIpQLSdTZUBoKoEwSefrwi0oixr6jP8HAFuGFs3SguTbAKOkB8l8jA/formResponse', {
+                                            method: 'POST',
+                                            mode: 'no-cors',
+                                            headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+                                            body: params.toString()
+                                                
+                        }).catch(() => { /* network failed — still confirm to avoid a dead form */});
 
             msg.textContent = currentLanguage === 'en'
                 ? "You're in, " + name.split(' ')[0] + "! We'll reach out as games launch near you. Meanwhile, try the live demo above. ⚽"
