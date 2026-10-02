@@ -6,6 +6,7 @@
 <title>BoB the Lobstar — Never Miss Another Job | AI Missed-Call Rescue for Contractors</title>
 <meta name="description" content="BoB texts back every missed call in under a minute, qualifies the lead, and books the estimate. Built for HVAC, plumbing, electrical, roofing and other home-service contractors. No contracts.">
 <link rel="icon" href="images/bob-logo.png">
+<link rel="stylesheet" href="chat-widget.css">
 <!--
   ============================================================
   SETUP — READ THIS FIRST (2 quick edits, then upload)
@@ -17,8 +18,9 @@
      via FormSubmit (free, no backend needed). ONE-TIME ACTIVATION: the first
      time someone submits, FormSubmit emails an activation link to that inbox —
      click it once and every later submission lands straight in the inbox.
-  Upload to GitHub: index.html at the repo root, and the
-  images/ folder next to it with these 5 files:
+  Upload to GitHub: index.html + chat-widget.css at the repo root
+  (chat-widget.js is already there — do NOT re-upload it), and the
+  images/ folder next to them with these 5 files:
     images/bob-logo.png          (header logo + favicon)
     images/contractor-hero.jpg   (hero photo)
     images/step-missed-call.jpg  ("You miss a call" card)
@@ -383,6 +385,14 @@
   </div>
 </section>
 
+<!-- CHATBOT -->
+<!-- The BoB chat widget mounts here. chat-widget.js renders the full chat
+     card (title/subtitle from the data attributes below) and talks to the
+     bot on Render. If this section is removed, the widget is a no-op. -->
+<section id="bob-chat-embed" data-bob-title="Talk to BoB"
+         data-bob-sub="Ask about pricing, the missed-call pilot, or how BoB books you jobs while you're on site.">
+</section>
+
 <!-- FINAL CTA -->
 <section class="final" id="demo">
   <div class="wrap">
@@ -427,5 +437,6 @@
   </div>
 </footer>
 
+<script src="chat-widget.js" defer></script>
 </body>
 </html>

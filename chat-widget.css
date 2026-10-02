@@ -11,28 +11,28 @@
  */
 
 #bob-chat-embed {
-  /* Brand palette — mirrors bobthelobstar.com's neon-green-on-black theme
-     (--neon, --bg, --text on the parent site). Keeping our own tokens so
-     this still works if dropped into a repo that doesn't define those. */
-  --bob-neon:          #00ff41;   /* bright accent: focus ring, link colour */
-  --bob-primary:       #00cc33;   /* user bubbles, send btn */
-  --bob-primary-dark:  #00a329;   /* hover state for the above */
-  --bob-glow:          rgba(0, 255, 65, 0.35);
-  --bob-bg:            rgba(10, 20, 11, 0.8);    /* site's --card-bg */
-  --bob-surface:       #050a06;                   /* site's --bg */
-  --bob-header:        #080f09;                   /* site's --bg2 */
-  --bob-text:          #e8f5e9;                   /* site's --text */
-  --bob-muted:         #7a9b7e;                   /* site's --text-dim */
-  --bob-bot-bubble:    rgba(0, 255, 65, 0.08);    /* subtle green tint */
+  /* Brand palette — re-themed 2026-10-01 to match the navy/amber site redesign.
+     Keeping our own tokens so this still works if dropped into a repo that
+     doesn't define those. */
+  --bob-neon:          #f5a623;   /* bright accent: focus ring, link colour */
+  --bob-primary:       #f5a623;   /* user bubbles, send btn */
+  --bob-primary-dark:  #d98a12;   /* hover state for the above */
+  --bob-glow:          rgba(245, 166, 35, 0.35);
+  --bob-bg:            #13253c;                   /* card */
+  --bob-surface:       #0d1b2a;                   /* messages area */
+  --bob-header:        #0a1524;                   /* header/footer/composer */
+  --bob-text:          #f2f5f8;
+  --bob-muted:         #93a3b5;
+  --bob-bot-bubble:    rgba(245, 166, 35, 0.08);  /* subtle amber tint */
   --bob-user-bubble:   var(--bob-primary);
-  --bob-user-text:     #050a06;                   /* dark text on neon reads crisp */
-  --bob-border:        rgba(0, 255, 65, 0.15);    /* site's --glass-border */
+  --bob-user-text:     #221a05;                   /* dark text on amber reads crisp */
+  --bob-border:        rgba(245, 166, 35, 0.18);
   --bob-focus-ring:    var(--bob-neon);
-  --bob-shadow:        0 10px 40px rgba(0, 0, 0, 0.55);
+  --bob-shadow:        0 16px 44px rgba(0, 0, 0, 0.35);
   --bob-radius:        14px;
 
   /* Font stack mirrors the site's body font so the embed blends in. */
-  --bob-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI",
+  --bob-font: -apple-system, BlinkMacSystemFont, "Segoe UI",
               Roboto, "Helvetica Neue", Arial, sans-serif;
 
   /* ---- Section layout ---- */
@@ -97,10 +97,10 @@
   border: 1px solid var(--bob-border);
   border-radius: var(--bob-radius);
   box-shadow: var(--bob-shadow);
-  /* Subtle inner glow so the card sits "lit" against the page grid. */
+  /* Subtle inner glow so the card sits "lit" against the page. */
   box-shadow:
     var(--bob-shadow),
-    inset 0 0 0 1px rgba(0, 255, 65, 0.04);
+    inset 0 0 0 1px rgba(245, 166, 35, 0.05);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -182,7 +182,7 @@
   color: var(--bob-user-text);
   border-bottom-right-radius: 4px;
   /* Tiny glow so user bubbles feel "sent" rather than flat. */
-  box-shadow: 0 0 12px rgba(0, 255, 65, 0.25);
+  box-shadow: 0 0 12px rgba(245, 166, 35, 0.25);
 }
 
 /* Typing indicator — three pulsing dots in a bot bubble. */
@@ -232,7 +232,7 @@
 #bob-chat-input::placeholder { color: var(--bob-muted); }
 #bob-chat-input:focus {
   border-color: var(--bob-neon);
-  box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.18);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.18);
 }
 #bob-chat-send {
   background: var(--bob-primary);
