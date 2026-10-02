@@ -3,1176 +3,421 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BoB The Lobstar — AI Marketing & Operations for Service Contractors</title>
-<meta name="description" content="AI-powered social media, Google Ads, lead capture, and review management for HVAC, plumbing, electrical, landscaping, and roofing contractors. Stop missing customer inquiries. Never close a weekend again.">
-
-<!-- Meta Pixel Code -->
+<title>BoB the Lobstar — Never Miss Another Job | AI Missed-Call Rescue for Contractors</title>
+<meta name="description" content="BoB texts back every missed call in under a minute, qualifies the lead, and books the estimate. Built for HVAC, plumbing, electrical, roofing and other home-service contractors. No contracts.">
+<link rel="icon" href="images/bob-logo.png">
+<!--
+  ============================================================
+  SETUP — READ THIS FIRST (2 quick edits, then upload)
+  ------------------------------------------------------------
+  1) MESSENGER LINK: already set to your "BoB The Lobstar AI" page
+     (https://m.me/1044098888791064). Every "Chat on Messenger"
+     button on this page uses it — no edit needed.
+  2) DEMO FORM: done — submissions go to affordableonlineservices@gmail.com
+     via FormSubmit (free, no backend needed). ONE-TIME ACTIVATION: the first
+     time someone submits, FormSubmit emails an activation link to that inbox —
+     click it once and every later submission lands straight in the inbox.
+  Upload to GitHub: index.html at the repo root, and the
+  images/ folder next to it (images/contractor-hero.jpg,
+  images/bob-logo.png).
+  ============================================================
+-->
 <script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '401523957773845');fbq('track', 'PageView');</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=401523957773845&ev=PageView&noscript=1"/></noscript>
+  const MESSENGER_URL = "https://m.me/1044098888791064"; // BoB The Lobstar AI page
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-messenger]").forEach(a => {
+      a.href = MESSENGER_URL;
+      a.target = "_blank";
+      a.rel = "noopener";
+    });
 
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};ttq.load('D7EV513C77U6KV5AB8GG');ttq.page();}(window, document, 'ttq');</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-
+    // Walkthrough form -> affordableonlineservices@gmail.com via FormSubmit (free, no backend).
+    // FIRST SUBMIT: FormSubmit emails an activation link to that inbox — click it once, then it just works.
+    const form = document.getElementById("walkthrough-form");
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!form.reportValidity()) return;
+        const btn = document.getElementById("walkthrough-btn");
+        const err = document.getElementById("form-error");
+        err.style.display = "none";
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        const name = document.getElementById("f-name").value.trim();
+        const first = name.split(/\s+/)[0] || "there";
+        try {
+          const res = await fetch("https://formsubmit.co/ajax/affordableonlineservices@gmail.com", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({
+              name: name,
+              phone: document.getElementById("f-phone").value.trim(),
+              trade: document.getElementById("f-trade").value,
+              missed_calls: document.getElementById("f-missed").value,
+              _subject: "New walkthrough request — BoB the Lobstar",
+              _honey: form.querySelector('[name="_honey"]').value
+            })
+          });
+          if (!res.ok) throw new Error("send failed");
+          form.innerHTML =
+            '<div style="text-align:center; padding:18px 6px">' +
+            '<div style="font-size:2.4rem; margin-bottom:10px">🤝</div>' +
+            "<p style=\"font-weight:800; font-size:1.25rem; margin-bottom:8px\">Thanks, " +
+            first.replace(/[<>&"]/g, "") + " — we got it.</p>" +
+            "<p style=\"color:#9fb0c3\">Really appreciate you reaching out. We'll look over your info and " +
+            "get back to you within 24 hours — usually same day. In the meantime, if you'd " +
+            "rather just talk now, hit the Messenger button above. A real human answers.</p>" +
+            "</div>";
+        } catch (ex) {
+          btn.disabled = false;
+          btn.textContent = "Request My Walkthrough";
+          err.style.display = "block";
+        }
+      });
+    }
+  });
+</script>
 <style>
-  :root {
-    --neon: #00ff41;
-    --neon-dim: #00cc33;
-    --neon-glow: rgba(0,255,65,0.35);
-    --pink: #ff2d9b;
-    --pink-dim: #d4187e;
-    --pink-glow: rgba(255,45,155,0.4);
-    --bg: #050a06;
-    --bg2: #080f09;
-    --glass: rgba(0,255,65,0.04);
-    --glass-border: rgba(0,255,65,0.15);
-    --text: #e8f5e9;
-    --text-dim: #7a9b7e;
-    --card-bg: rgba(10,20,11,0.8);
-    --danger: #ff4444;
+  :root{
+    --navy:#0d1b2a; --navy2:#13253c; --amber:#f5a623; --amber-d:#d98a12;
+    --paper:#ffffff; --mist:#f4f6f8; --ink:#1c2733; --muted:#5b6b7d;
+    --line:#e2e8f0; --ok:#1f9d55; --radius:14px;
   }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-
-  /* Grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ── Navigation ─────────────────────────────── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.6rem 2rem;
-    backdrop-filter: blur(20px);
-    background: rgba(5,10,6,0.92);
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
-  .nav-logo img {
-    height: 144px;
-    width: auto;
-    display: block;
-    animation: floatLogo 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 16px rgba(0,255,65,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));
-  }
-  @keyframes floatLogo {
-    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 16px rgba(0,255,65,0.5)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
-    50%      { transform: translateY(-8px); filter: drop-shadow(0 0 28px rgba(0,255,65,0.8)) drop-shadow(0 18px 32px rgba(0,0,0,0.5)); }
-  }
-  .nav-logo span { font-family: 'Syne', sans-serif; font-size: 1.1rem; color: var(--neon); letter-spacing: 0.03em; font-weight: 700; }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-    align-items: center;
-  }
-  .nav-links a {
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-    white-space: nowrap;
-  }
-  .nav-links a:hover { color: var(--neon); }
-
-  .nav-cta {
-    background: var(--neon); color: #000; font-weight: 700; font-size: 0.85rem;
-    padding: 0.55rem 1.25rem; border-radius: 6px; text-decoration: none;
-    transition: box-shadow 0.2s, transform 0.2s;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .nav-cta:hover { box-shadow: 0 0 24px var(--neon-glow); transform: translateY(-1px); }
-
-  /* Hamburger */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    z-index: 200;
-  }
-  .nav-hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--neon);
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
-  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* Mobile nav drawer */
-  .nav-mobile-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(5,10,6,0.97);
-    z-index: 99;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    padding: 2rem;
-    backdrop-filter: blur(20px);
-  }
-  .nav-mobile-overlay.open { display: flex; }
-  .nav-mobile-overlay a {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.2s;
-    letter-spacing: 0.05em;
-  }
-  .nav-mobile-overlay a:hover { color: var(--neon); }
-  .nav-mobile-overlay .nav-cta {
-    font-size: 1rem;
-    padding: 0.85rem 2.5rem;
-    margin-top: 1rem;
-  }
-
-  section { position: relative; z-index: 1; }
-
-  /* ── Hero ────────────────────────────────────── */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 11rem 1.5rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  #hero::before {
-    content: '';
-    position: absolute;
-    top: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    height: 900px;
-    background: radial-gradient(ellipse, rgba(0,255,65,0.09) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    padding: 0.4rem 1rem;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--neon);
-    margin-bottom: 2rem;
-    letter-spacing: 0.08em;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-badge span { width: 7px; height: 7px; border-radius: 50%; background: var(--neon); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
-
-  h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.2rem, 6vw, 4rem);
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.7s 0.2s ease both;
-  }
-  h1 .highlight { color: var(--neon); text-shadow: 0 0 40px rgba(0,255,65,0.4); }
-
-  .hero-sub {
-    max-width: 720px;
-    font-size: 1.2rem;
-    color: var(--text-dim);
-    margin-bottom: 2.5rem;
-    line-height: 1.75;
-    animation: fadeUp 0.7s 0.3s ease both;
-  }
-
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.7s 0.4s ease both; }
-  .btn-primary {
-    background: var(--neon);
-    color: #000;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.9rem 2.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: box-shadow 0.2s, transform 0.2s;
-    letter-spacing: 0.02em;
-    display: inline-block;
-  }
-  .btn-primary:hover { box-shadow: 0 0 36px var(--neon-glow); transform: translateY(-2px); }
-
-  .btn-secondary {
-    border: 1px solid var(--glass-border);
-    color: var(--text);
-    font-weight: 600;
-    padding: 0.9rem 2.2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    transition: border-color 0.2s, color 0.2s;
-    font-size: 1rem;
-    cursor: pointer;
-    display: inline-block;
-  }
-  .btn-secondary:hover { border-color: var(--neon); color: var(--neon); }
-
-  /* ── Value Cards ─────────────────────────────── */
-  .value-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-    animation: fadeUp 0.7s 0.5s ease both;
-    width: 100%;
-    max-width: 1100px;
-  }
-  .value-card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    padding: 2rem;
-    border-radius: 12px;
-    transition: transform 0.3s, border-color 0.3s;
-    text-align: left;
-  }
-  .value-card:hover { transform: translateY(-4px); border-color: var(--neon); }
-  .value-card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  .value-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
-    color: var(--neon);
-  }
-  .value-card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
-
-  /* ── Chat Shortcut Card ──────────────────────── */
-  .value-card.chat-shortcut {
-    background: rgba(255,45,155,0.06);
-    border: 1px solid rgba(255,45,155,0.35);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    animation: shimmerBorder 3s ease-in-out infinite;
-  }
-  .value-card.chat-shortcut::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at top left, rgba(255,45,155,0.18) 0%, transparent 65%);
-    pointer-events: none;
-  }
-  .value-card.chat-shortcut:hover {
-    border-color: var(--pink);
-    box-shadow: 0 0 40px var(--pink-glow), 0 8px 32px rgba(255,45,155,0.2);
-    transform: translateY(-6px) scale(1.02);
-    animation: none;
-  }
-  .value-card.chat-shortcut h3 {
-    color: var(--pink);
-    text-shadow: 0 0 20px rgba(255,45,155,0.5);
-    font-size: 1.05rem;
-  }
-  @keyframes shimmerBorder {
-    0%,100% { box-shadow: 0 0 12px rgba(255,45,155,0.3); }
-    50%      { box-shadow: 0 0 28px rgba(255,45,155,0.6), 0 0 60px rgba(255,45,155,0.2); }
-  }
-  .chat-cta-arrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--pink);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: gap 0.2s;
-  }
-  .value-card.chat-shortcut:hover .chat-cta-arrow { gap: 0.7rem; }
-  .chat-cta-arrow svg { width: 16px; height: 16px; transition: transform 0.2s; }
-  .value-card.chat-shortcut:hover .chat-cta-arrow svg { transform: translateX(3px); }
-
-  @keyframes floatBob {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-  }
-  @keyframes floatPink {
-    0%,100% { transform: translateY(0px); filter: drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4)); }
-    50%      { transform: translateY(-10px); filter: drop-shadow(0 0 36px rgba(255,45,155,1)) drop-shadow(0 20px 32px rgba(0,0,0,0.5)); }
-  }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-
-  /* ── Section Styling ─────────────────────────── */
-  .section-content { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-  section { padding: 7rem 1.5rem; }
-  section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--text);
-  }
-  section .section-sub { font-size: 1.1rem; color: var(--text-dim); max-width: 600px; margin-bottom: 3rem; }
-
-  /* Why You Need This */
-  #why-you-need { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
-  .pain-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  .pain-point { background: var(--card-bg); border-left: 4px solid var(--danger); padding: 1.5rem; border-radius: 8px; }
-  .pain-point h3 { color: var(--danger); margin-bottom: 0.5rem; font-family: 'Syne', sans-serif; font-size: 1.1rem; }
-  .pain-point p { font-size: 0.95rem; color: var(--text-dim); }
-
-  /* How It Works */
-  #how-it-works { background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%); }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; counter-reset: step-counter; }
-  .step { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); position: relative; counter-increment: step-counter; }
-  .step::before {
-    content: counter(step-counter);
-    position: absolute; top: -15px; left: 2rem;
-    background: var(--neon); color: #000;
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-family: 'Syne', sans-serif;
-  }
-  .step h3 { margin-top: 1rem; color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.1rem; }
-  .step p { font-size: 0.95rem; color: var(--text-dim); margin-top: 0.5rem; }
-
-  /* Features */
-  #features { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
-  .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  .feature-item { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--glass-border); transition: all 0.3s; }
-  .feature-item:hover { border-color: var(--neon); transform: translateY(-4px); }
-  .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-  .feature-item h3 { color: var(--neon); margin-bottom: 0.75rem; font-family: 'Syne', sans-serif; font-size: 1.15rem; }
-  .feature-item p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
-
-  /* Industries */
-  #industries { background: linear-gradient(135deg, transparent 0%, rgba(0,255,65,0.04) 100%); }
-  .industry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-  .industry-badge { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 10px; text-align: center; transition: all 0.3s; cursor: default; }
-  .industry-badge:hover { border-color: var(--neon); transform: scale(1.05); }
-  .industry-badge-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-  .industry-badge-name { color: var(--text); font-weight: 600; font-family: 'Syne', sans-serif; font-size: 0.95rem; }
-
-  /* Pricing */
-  #pricing { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
-  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
-  .price-card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2.5rem; border-radius: 12px; position: relative; transition: all 0.3s; }
-  .price-card.featured { border-color: var(--neon); box-shadow: 0 0 30px rgba(0,255,65,0.15); transform: scale(1.03); }
-  .price-card:hover { border-color: var(--neon); }
-  .price-tag { position: absolute; top: -12px; right: 2rem; background: var(--neon); color: #000; padding: 0.4rem 0.9rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; display: none; }
-  .price-card.featured .price-tag { display: block; }
-  .price-card h3 { color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.3rem; margin-bottom: 0.5rem; }
-  .price-card-subtitle { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem; }
-  .price-amount { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--neon); margin-bottom: 0.5rem; }
-  .price-amount span { font-size: 1.1rem; }
-  .price-billing { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem; }
-  .price-features { list-style: none; margin-bottom: 2rem; }
-  .price-features li { padding: 0.75rem 0; font-size: 0.9rem; color: var(--text-dim); border-bottom: 1px solid var(--glass-border); }
-  .price-features li:before { content: '✓ '; color: var(--neon); font-weight: 700; margin-right: 0.5rem; }
-  .price-btn { width: 100%; padding: 0.85rem; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; transition: all 0.2s; font-size: 0.95rem; }
-  .price-btn.primary { background: var(--neon); color: #000; }
-  .price-btn.primary:hover { box-shadow: 0 0 36px var(--neon-glow); transform: translateY(-2px); }
-  .price-btn.secondary { background: transparent; color: var(--neon); border: 1px solid var(--neon); }
-  .price-btn.secondary:hover { background: var(--glass); }
-
-  /* ROI */
-  #roi-section { background: linear-gradient(135deg, rgba(0,255,65,0.02) 0%, transparent 100%); }
-  .roi-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  .roi-item { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 12px; }
-  .roi-item h3 { color: var(--neon); font-family: 'Syne', sans-serif; font-size: 1.1rem; margin-bottom: 1rem; }
-  .roi-stat { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--neon); margin-bottom: 0.5rem; }
-  .roi-item p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
-
-  /* Social Proof */
-  #proof { background: linear-gradient(135deg, rgba(0,255,65,0.05) 0%, transparent 100%); }
-  .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-  .proof-card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 2rem; border-radius: 12px; }
-  .proof-card p { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1.5rem; line-height: 1.7; }
-  .proof-author { font-weight: 600; color: var(--neon); font-family: 'Syne', sans-serif; font-size: 0.95rem; }
-  .proof-role { font-size: 0.8rem; color: var(--text-dim); }
-
-  /* ── Demo Request Form ───────────────────────── */
-  #book {
-    background: linear-gradient(135deg, rgba(0,255,65,0.04) 0%, rgba(255,45,155,0.03) 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  #book::before {
-    content: '';
-    position: absolute;
-    top: -200px; left: 50%;
-    transform: translateX(-50%);
-    width: 800px; height: 800px;
-    background: radial-gradient(ellipse, rgba(0,255,65,0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .book-inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .book-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-  .book-header h2 { color: var(--text); margin-bottom: 0.75rem; }
-  .book-header p { color: var(--text-dim); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
-
-  .form-card {
-    background: var(--card-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 2.5rem;
-    backdrop-filter: blur(12px);
-    position: relative;
-    overflow: hidden;
-  }
-  .form-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(0,255,65,0.04) 0%, rgba(255,45,155,0.02) 100%);
-    pointer-events: none;
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-    margin-bottom: 1.2rem;
-  }
-  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
-  .form-group.full { grid-column: 1 / -1; }
-
-  .form-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .form-input,
-  .form-select,
-  .form-textarea {
-    background: rgba(0,255,65,0.03);
-    border: 1px solid var(--glass-border);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    color: var(--text);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.9rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    width: 100%;
-  }
-  .form-input::placeholder,
-  .form-textarea::placeholder { color: rgba(122,155,126,0.5); }
-  .form-input:focus,
-  .form-select:focus,
-  .form-textarea:focus {
-    border-color: var(--neon);
-    box-shadow: 0 0 0 3px rgba(0,255,65,0.1);
-  }
-  .form-select {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300ff41' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.5rem;
-    cursor: pointer;
-  }
-  .form-select option { background: #0a150b; color: var(--text); }
-  .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
-
-  .form-submit {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 8px;
-    border: none;
-    background: var(--neon);
-    color: #000;
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: box-shadow 0.2s, transform 0.2s;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  .form-submit:hover {
-    box-shadow: 0 0 40px var(--neon-glow), 0 6px 24px rgba(0,0,0,0.4);
-    transform: translateY(-2px);
-  }
-
-  .form-note {
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    margin-top: 1rem;
-  }
-  .book-phone {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-  }
-  .book-phone a { color: var(--neon); font-weight: 700; text-decoration: none; }
-  .book-phone a:hover { text-decoration: underline; }
-
-  /* Footer */
-  footer { background: var(--bg2); border-top: 1px solid var(--glass-border); padding: 3rem 1.5rem 2rem; }
-  .footer-content {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 3rem; margin-bottom: 2rem;
-  }
-  .footer-col h4 { color: var(--neon); margin-bottom: 1rem; font-family: 'Syne', sans-serif; font-size: 0.95rem; }
-  .footer-col a, .footer-col p { display: block; font-size: 0.85rem; color: var(--text-dim); text-decoration: none; margin-bottom: 0.75rem; }
-  .footer-col a:hover { color: var(--neon); }
-  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--glass-border); text-align: center; font-size: 0.85rem; color: var(--text-dim); }
-
-  /* ── Back-to-Top Arrow ───────────────────────── */
-  #back-to-top {
-    position: fixed;
-    bottom: 2rem; right: 2rem;
-    z-index: 200;
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    background: var(--pink);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 20px var(--pink-glow), 0 4px 16px rgba(0,0,0,0.4);
-    transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
-    opacity: 0; pointer-events: none;
-    transform: translateY(12px);
-  }
-  #back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  #back-to-top:hover { box-shadow: 0 0 36px var(--pink-glow), 0 6px 24px rgba(0,0,0,0.5); transform: translateY(-3px); }
-  #back-to-top svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 2.5; fill: none; }
-
-  /* ── Responsive ──────────────────────────────── */
-  @media (max-width: 1024px) {
-    .value-cards { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 0.4rem 1rem; }
-    .nav-logo img { height: 80px; }
-    .nav-links { display: none; }
-    .nav-cta { display: none; }
-    .nav-hamburger { display: flex; }
-
-    .price-card.featured { transform: scale(1); }
-    #hero { padding: 7rem 1rem 3rem; }
-    h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); }
-    .hero-sub { font-size: 1rem; }
-    .hero-btns { flex-direction: column; align-items: stretch; }
-    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
-
-    .value-cards { grid-template-columns: 1fr; }
-    section { padding: 4.5rem 1rem; }
-    section h2 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
-
-    .pain-points { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: 1fr; }
-    .feature-grid { grid-template-columns: 1fr; }
-    .industry-grid { grid-template-columns: repeat(2, 1fr); }
-    .roi-card { grid-template-columns: 1fr; }
-    .proof-grid { grid-template-columns: 1fr; }
-    .pricing-grid { grid-template-columns: 1fr; }
-
-    .form-grid { grid-template-columns: 1fr; }
-    .form-card { padding: 1.5rem; }
-
-    #back-to-top { bottom: 1.2rem; right: 1.2rem; width: 44px; height: 44px; }
-  }
-
-  @media (max-width: 480px) {
-    .industry-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-content { grid-template-columns: 1fr; gap: 2rem; }
-    .value-cards { gap: 1rem; }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink); line-height:1.6; background:var(--paper); -webkit-text-size-adjust:100%}
+  img{max-width:100%; height:auto; display:block}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px}
+  section{padding:64px 0}
+  h1{font-size:clamp(2rem,5.4vw,3.4rem); line-height:1.12; letter-spacing:-.02em}
+  h2{font-size:clamp(1.5rem,3.6vw,2.2rem); line-height:1.2; letter-spacing:-.015em; margin-bottom:14px}
+  h3{font-size:1.12rem; margin-bottom:8px}
+  p{margin-bottom:14px}
+  .eyebrow{display:inline-block; font-size:.78rem; font-weight:700; letter-spacing:.14em;
+           text-transform:uppercase; color:var(--amber-d); margin-bottom:12px}
+  .lede{font-size:clamp(1.05rem,2.4vw,1.3rem); color:var(--muted); max-width:640px}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+       min-height:52px; padding:14px 28px; border-radius:999px; font-weight:700;
+       font-size:1.02rem; text-decoration:none; cursor:pointer; border:0; transition:transform .12s ease, box-shadow .12s ease}
+  .btn:active{transform:scale(.97)}
+  .btn-amber{background:var(--amber); color:#221a05; box-shadow:0 8px 24px rgba(245,166,35,.35)}
+  .btn-amber:hover{background:var(--amber-d)}
+  .btn-ghost{background:transparent; color:inherit; border:2px solid currentColor; box-shadow:none}
+  .btn-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:26px}
+  .micro{font-size:.86rem; color:var(--muted); margin-top:16px}
+  /* motion: logo float + button life */
+  @keyframes bob-float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+  @keyframes cta-ping{0%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 0 rgba(245,166,35,.55)}
+    70%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 16px rgba(245,166,35,0)}
+    100%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 0 rgba(245,166,35,0)}}
+  .bob-logo{animation:bob-float 4.5s ease-in-out infinite; filter:drop-shadow(0 4px 12px rgba(245,166,35,.35))}
+  .brand:hover .bob-logo{animation-play-state:paused; filter:drop-shadow(0 6px 20px rgba(245,166,35,.75))}
+  .btn{will-change:transform}
+  .btn:hover{transform:translateY(-3px)}
+  .btn-amber:hover{box-shadow:0 14px 34px rgba(245,166,35,.55)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .btn-pulse{animation:cta-ping 2.6s ease-out infinite}
+  .btn-pulse:hover{animation-play-state:paused}
+  @media(prefers-reduced-motion:reduce){.bob-logo,.btn-pulse{animation:none}.btn:hover{transform:none}}
+  /* header */
+  header{position:sticky; top:0; z-index:50; background:rgba(13,27,42,.96);
+         backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,.08)}
+  .bar{display:flex; align-items:center; justify-content:space-between; height:68px}
+  .brand{display:flex; align-items:center; gap:12px; color:#fff; text-decoration:none; font-weight:800; font-size:1.1rem}
+  .brand img{width:42px; height:42px; border-radius:50%; object-fit:cover; background:#fff}
+  .bar .btn{min-height:44px; padding:10px 22px; font-size:.95rem}
+  /* hero */
+  .hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%); color:#fff; padding:72px 0 64px}
+  .hero-grid{display:grid; gap:36px; align-items:center}
+  .hero .lede{color:#c4cfdb}
+  .hero-photo{border-radius:var(--radius); overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  .hero-photo img{width:100%; aspect-ratio:16/10; object-fit:cover}
+  .trust{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:22px; font-size:.92rem; color:#c4cfdb}
+  .trust span{display:inline-flex; align-items:center; gap:8px}
+  .trust b{color:var(--amber)}
+  /* strips & cards */
+  .strip{background:var(--mist); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0}
+  .trades{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+  .trades span{background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 18px; font-weight:600; font-size:.95rem}
+  .cards{display:grid; gap:18px; margin-top:30px}
+  .card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:26px;
+        box-shadow:0 4px 18px rgba(13,27,42,.05)}
+  .card .n{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px;
+           border-radius:50%; background:var(--navy); color:#fff; font-weight:800; margin-bottom:12px}
+  .card p:last-child{margin-bottom:0; color:var(--muted)}
+  /* steps */
+  .steps{background:var(--navy); color:#fff}
+  .steps .lede{color:#c4cfdb}
+  .step{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); padding:26px}
+  .step .n{background:var(--amber); color:#221a05}
+  .step p:last-child{margin-bottom:0; color:#c4cfdb}
+  .chat-bubble{background:#fff; color:var(--ink); border-radius:16px 16px 16px 4px; padding:14px 18px;
+               margin-top:14px; font-size:.95rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
+  .chat-bubble small{display:block; color:var(--muted); font-size:.78rem; margin-top:6px}
+  /* offer */
+  .offer-card{background:#fff; border:2px solid var(--amber); border-radius:18px; padding:34px;
+              box-shadow:0 16px 44px rgba(245,166,35,.16); margin-top:28px}
+  .price{font-size:2.6rem; font-weight:800; letter-spacing:-.02em}
+  .price small{font-size:1rem; font-weight:500; color:var(--muted)}
+  .check{list-style:none; margin:18px 0}
+  .check li{padding:9px 0 9px 34px; position:relative; border-bottom:1px solid var(--line)}
+  .check li:last-child{border-bottom:0}
+  .check li::before{content:"✓"; position:absolute; left:4px; top:9px; color:var(--ok); font-weight:800}
+  /* proof */
+  .proof{background:var(--mist)}
+  .proof-card{background:#fff; border-left:6px solid var(--amber); border-radius:0 var(--radius) var(--radius) 0;
+              padding:28px; box-shadow:0 4px 18px rgba(13,27,42,.06); margin-top:24px}
+  .proof-card blockquote{font-size:clamp(1.1rem,2.6vw,1.4rem); font-weight:600; line-height:1.45; margin-bottom:12px}
+  .fine{font-size:.85rem; color:var(--muted)}
+  .math{display:grid; gap:18px; margin-top:24px}
+  .math .card{text-align:center}
+  .math .big{font-size:2rem; font-weight:800; color:var(--navy)}
+  /* faq */
+  details{background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin-bottom:12px}
+  summary{font-weight:700; cursor:pointer; font-size:1.02rem}
+  details p{margin:10px 0 0; color:var(--muted)}
+  /* final cta */
+  .final{background:linear-gradient(180deg,var(--navy2),var(--navy)); color:#fff; text-align:center}
+  .final .lede{color:#c4cfdb; margin:0 auto 8px}
+  .final .btn-row{justify-content:center}
+  form.lead{max-width:520px; margin:34px auto 0; background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.14); border-radius:var(--radius); padding:28px; text-align:left}
+  form.lead label{display:block; font-size:.88rem; font-weight:600; margin:14px 0 6px}
+  form.lead input, form.lead select{width:100%; padding:14px 16px; border-radius:10px; border:1px solid rgba(255,255,255,.2);
+            background:rgba(255,255,255,.95); color:var(--ink); font-size:1rem; min-height:52px}
+  form.lead .btn{width:100%; margin-top:20px}
+  footer{background:#0a1420; color:#8fa0b3; padding:34px 0; font-size:.88rem; text-align:center}
+  footer a{color:#c4cfdb}
+  @media(min-width:760px){
+    .hero-grid{grid-template-columns:1.05fr .95fr}
+    .cards{grid-template-columns:repeat(3,1fr)}
+    .math{grid-template-columns:repeat(3,1fr)}
+    section{padding:84px 0}
   }
 </style>
 </head>
 <body>
 
-<!-- Back-to-top button -->
-<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <polyline points="18 15 12 9 6 15"></polyline>
-  </svg>
-</button>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">
+      <img src="images/bob-logo.png" alt="BoB the Lobstar logo" class="bob-logo">
+      BoB the Lobstar
+    </a>
+    <a class="btn btn-amber" data-messenger href="#">Message Us</a>
+  </div>
+</header>
 
-<!-- Mobile Nav Overlay -->
-<div class="nav-mobile-overlay" id="mobileNav">
-  <a href="#why-you-need" onclick="closeMobileNav()">Why You Need This</a>
-  <a href="#industries" onclick="closeMobileNav()">Industries</a>
-  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
-  <a href="#book" onclick="closeMobileNav()">Get a Demo 🦞</a>
-  <a href="#bob-chat-embed" onclick="closeMobileNav()">Chat with BoB 💬</a>
-  <a href="#pricing" class="nav-cta" onclick="closeMobileNav()">Get Started</a>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">AI missed-call rescue for home-service contractors</span>
+      <h1>Your missed calls are jobs you already paid for.</h1>
+      <p class="lede">You're on a roof, under a sink, in an attic. The phone rings — and the customer calls your competitor next. BoB texts every missed call back in under a minute, qualifies the lead, and books the estimate while you're still on the job.</p>
+      <div class="btn-row">
+        <a class="btn btn-amber btn-pulse" data-messenger href="#">Chat on Messenger</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <div class="trust">
+        <span><b>✓</b> No contracts</span>
+        <span><b>✓</b> Cancel anytime</span>
+        <span><b>✓</b> Set up in days, not months</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/contractor-hero.jpg" alt="HVAC technician servicing an air conditioning unit at a customer's home">
+    </div>
+  </div>
+</section>
+
+<!-- TRADES -->
+<div class="strip">
+  <div class="wrap trades">
+    <span>Plumbing</span><span>HVAC</span><span>Electrical</span><span>Roofing</span><span>Landscaping</span><span>Painting</span><span>Cleaning</span><span>Pest Control</span>
+  </div>
 </div>
 
-<!-- Navigation -->
-<nav>
-  <a class="nav-logo" href="#hero">
-    <img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB The Lobstar">
-    <span>BoB The Lobstar</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#why-you-need">Why You Need This</a></li>
-    <li><a href="#industries">Industries</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#book">Get a Demo</a></li>
-  </ul>
-  <a class="nav-cta" href="#pricing">Get Started</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- Hero -->
-<section id="hero">
-  <div class="hero-badge">
-    <span></span> Stop Losing Revenue from Missed Leads
-  </div>
-  <h1>Your <span class="highlight">24/7 AI Marketer</span> for Contractors</h1>
-  <p class="hero-sub">Never miss a customer inquiry again. Automated social media, Google Ads, lead capture, and review generation so your team stays focused on the job site—not the phone.</p>
-  <div class="hero-btns">
-    <a href="#pricing" class="btn-primary">Start Your 14-Day Trial</a>
-    <a href="#how-it-works" class="btn-secondary">See How It Works</a>
-  </div>
-
-  <div class="value-cards">
-    <div class="value-card">
-      <div class="value-card-icon">📞</div>
-      <h3>Never Miss a Lead</h3>
-      <p>AI answers customer questions 24/7, captures leads while you sleep, and schedules estimates automatically.</p>
-    </div>
-    <div class="value-card">
-      <div class="value-card-icon">⭐</div>
-      <h3>Auto-Generate Reviews</h3>
-      <p>Instantly request reviews after job completion. AI writes personalized thank-you responses. Boost local SEO.</p>
-    </div>
-    <div class="value-card">
-      <div class="value-card-icon">📱</div>
-      <h3>Smart Social + Ads</h3>
-      <p>AI posts tailored content daily. Manages your Google & Facebook Ad spend for maximum ROI.</p>
-    </div>
-    <!-- Chat Shortcut Card -->
-    <div class="value-card chat-shortcut" onclick="document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Chat with BoB">
-      <div class="value-card-icon">
-        <img src="https://raw.githubusercontent.com/affordableonlineservices/bobthelobstar/main/LOGO_B64.png" alt="BoB" style="height:8.8rem;width:auto;animation:floatPink 3s ease-in-out infinite;filter:drop-shadow(0 0 18px rgba(255,45,155,0.8)) drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
+<!-- PROBLEM -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">The problem</span>
+    <h2>You're losing jobs to silence.</h2>
+    <p class="lede">Not to better competitors — to faster ones. Here's where the money leaks out:</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Slow estimate response</h3>
+        <p>Customers call three shops while waiting. By the time you call back Monday, they've already hired someone else.</p>
       </div>
-      <h3>Still have questions?</h3>
-      <p>BoB is standing by right now. Get instant answers on pricing, features, and how to grow your business — no waiting, no sales pitch.</p>
-      <div class="chat-cta-arrow">
-        Let's Chat
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#ff2d9b" stroke-width="2.5" fill="none">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
+      <div class="card">
+        <h3>Missed weekend leads</h3>
+        <p>Friday night, Saturday, Sunday — you're on a job site. The message sits unanswered. The customer moves on.</p>
+      </div>
+      <div class="card">
+        <h3>No follow-up system</h3>
+        <p>Estimates go out, nobody follows up. Old customers never hear from you again. That's revenue walking out the door.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Why You Need This -->
-<section id="why-you-need">
-  <div class="section-content">
-    <h2>The Problem: You're Leaving Money on the Table</h2>
-    <p class="section-sub">Service contractors lose leads constantly. A missed text on Sunday. An unanswered Facebook message while on a job. A customer who can't schedule an estimate fast enough.</p>
-    <div class="pain-points">
-      <div class="pain-point">
-        <h3>⏱️ Slow Estimate Response</h3>
-        <p>Customers call 3 competitors while waiting for your estimate. By the time you call back Monday, they've already hired someone else.</p>
-      </div>
-      <div class="pain-point">
-        <h3>📱 Missed Weekend Leads</h3>
-        <p>Your phone rings Friday evening, Saturday, Sunday—you're on a job site. Message sits unanswered. Customer moves on.</p>
-      </div>
-      <div class="pain-point">
-        <h3>🔄 No Follow-Up System</h3>
-        <p>Customer inquiries fall through the cracks. No automated reminder. No follow-up sequence. Lost revenue.</p>
-      </div>
-      <div class="pain-point">
-        <h3>⭐ No Review Momentum</h3>
-        <p>You do great work, but 95% of happy customers never leave a review. Local SEO suffers. New customers can't find you.</p>
-      </div>
-      <div class="pain-point">
-        <h3>📊 Dead Social Media</h3>
-        <p>Your Instagram & Facebook sit dormant. You're not capturing attention from local customers actively searching online.</p>
-      </div>
-      <div class="pain-point">
-        <h3>💰 Ad Budget Wasted</h3>
-        <p>Running Google Ads or Facebook Ads without the infrastructure to capture & convert leads? Money down the drain.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- How It Works -->
-<section id="how-it-works">
-  <div class="section-content">
-    <h2>How BoB Captures Every Dollar</h2>
-    <p class="section-sub">It's simple: BoB works 24/7 so you don't have to. Every lead gets qualified. Every customer gets a response.</p>
-    <div class="steps">
+<!-- HOW IT WORKS -->
+<section class="steps" id="how">
+  <div class="wrap">
+    <span class="eyebrow">The 60-second rescue</span>
+    <h2>Missed call → textback → booked job.</h2>
+    <p class="lede">No apps to learn. No behavior to change. You just stop losing the calls you're already missing.</p>
+    <div class="cards">
       <div class="step">
-        <h3>Lead Capture</h3>
-        <p>Customer texts, calls, or messages on Facebook/Instagram. BoB instantly answers, qualifies the lead, and captures their info.</p>
+        <span class="n">1</span>
+        <h3>You miss a call</h3>
+        <p>On a job, up a ladder, under a house. It happens — that's the business.</p>
       </div>
       <div class="step">
-        <h3>Instant Scheduling</h3>
-        <p>BoB offers available time slots and books the estimate. No back-and-forth. Customer gets confirmed appointment immediately.</p>
+        <span class="n">2</span>
+        <h3>BoB texts back in under a minute</h3>
+        <p>The customer gets a friendly text from your business instantly — before they dial the next guy.</p>
+        <div class="chat-bubble">"Sorry we missed you! This is Mike's Plumbing — do you need an estimate or is something urgent?"<small>— sent automatically, in your business's name</small></div>
       </div>
       <div class="step">
-        <h3>Job Completion</h3>
-        <p>You mark the job complete in your system. BoB automatically sends a review request text to the customer.</p>
+        <span class="n">3</span>
+        <h3>Lead qualified, estimate booked</h3>
+        <p>BoB asks the right questions, offers your open slots, and puts the job on your calendar. You just show up.</p>
       </div>
-      <div class="step">
-        <h3>Review + Response</h3>
-        <p>When they leave a review, BoB drafts a thoughtful thank-you response. Posts it publicly. Boosts your local SEO.</p>
-      </div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-amber" data-messenger href="#">Try it on Messenger</a>
     </div>
   </div>
 </section>
 
-<!-- Features -->
-<section id="features">
-  <div class="section-content">
-    <h2>What BoB Does for You</h2>
-    <p class="section-sub">Fully automated, always learning, always improving.</p>
-    <div class="feature-grid">
-      <div class="feature-item">
-        <div class="feature-icon">💬</div>
-        <h3>24/7 AI Chat & Phone</h3>
-        <p>Answer customer questions on text, Facebook Messenger, Instagram DM, and phone. Never miss a lead. Speak naturally about your services.</p>
+<!-- PILOT OFFER -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Start here</span>
+    <h2>The Missed-Call Pilot.</h2>
+    <p class="lede">One thing, done right — before you buy the whole toolbox. If the pilot doesn't book you jobs, kill it. No hard feelings, no contract.</p>
+    <div class="offer-card">
+      <div class="price">$299<small>/month + $250 one-time setup</small></div>
+      <ul class="check">
+        <li>Instant text-back on every missed call, 24/7</li>
+        <li>Lead qualifying + estimate scheduling straight to your calendar</li>
+        <li>After-hours and weekend coverage included</li>
+        <li>Automatic review requests after every completed job</li>
+        <li>Weekly text summary: calls caught, jobs booked</li>
+      </ul>
+      <div class="btn-row">
+        <a class="btn btn-amber" data-messenger href="#">Start the pilot on Messenger</a>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">📅</div>
-        <h3>Auto-Scheduling</h3>
-        <p>Customers book their own estimates. Syncs with your calendar instantly. No double-bookings. Real-time confirmation.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">⭐</div>
-        <h3>Review Generation</h3>
-        <p>AI texts customers after job completion requesting a review. Dramatically increases review volume. Boosts local SEO visibility.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📝</div>
-        <h3>Smart Responses</h3>
-        <p>AI writes personalized, professional thank-you responses to new reviews. Posts them publicly to show engagement and professionalism.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📱</div>
-        <h3>Daily Social Posts</h3>
-        <p>AI generates and posts relevant content daily. Before/after project photos, tips, customer spotlights, seasonal promotions.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📊</div>
-        <h3>Google + Facebook Ads</h3>
-        <p>BoB optimizes ad spend for maximum ROI. Automatically adjusts bids. Tests creative. Targets your service area precisely.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📧</div>
-        <h3>Email Campaigns</h3>
-        <p>Automated follow-up sequences. Seasonal promotions. Customer re-engagement. Reminders for maintenance contracts.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📍</div>
-        <h3>Local SEO Boost</h3>
-        <p>Reviews + consistent posting + citation building = higher Google Maps ranking. More local customers find you first.</p>
-      </div>
+      <p class="micro">No contracts. Cancel anytime. If it doesn't pay for itself, you shouldn't keep it.</p>
     </div>
   </div>
 </section>
 
-<!-- Industries We Serve -->
-<section id="industries">
-  <div class="section-content">
-    <h2>Built for High-Touch Service Industries</h2>
-    <p class="section-sub">BoB specializes in businesses where every missed inquiry is lost revenue.</p>
-    <div class="industry-grid">
-      <div class="industry-badge"><div class="industry-badge-icon">🔧</div><div class="industry-badge-name">Plumbing</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">❄️</div><div class="industry-badge-name">HVAC</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">⚡</div><div class="industry-badge-name">Electrical</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">🌿</div><div class="industry-badge-name">Landscaping</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">🏠</div><div class="industry-badge-name">Roofing</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">🪟</div><div class="industry-badge-name">Window Cleaning</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">🎨</div><div class="industry-badge-name">Painting</div></div>
-      <div class="industry-badge"><div class="industry-badge-icon">🧹</div><div class="industry-badge-name">Cleaning</div></div>
+<!-- PROOF -->
+<section class="proof">
+  <div class="wrap">
+    <span class="eyebrow">Why this works</span>
+    <h2>Don't take our word for it.</h2>
+    <div class="proof-card">
+      <blockquote>"An AI voice receptionist for home-service contractors recovered $74,000 in booked jobs from after-hours calls."</blockquote>
+      <p class="fine">That's from ServiceTitan's published case study on AI call handling — their product, their customer, their numbers. We're showing it because it's the same playbook: the jobs are already calling you, someone just has to pick up. Our pilot does that with instant text-back instead of voice.</p>
+    </div>
+    <h2 style="margin-top:44px">Run your own numbers.</h2>
+    <p class="fine" style="margin-bottom:6px"><em>Illustrative example — plug in your own numbers:</em></p>
+    <div class="math">
+      <div class="card"><div class="big">5</div><p>Missed leads a month while you're on job sites</p></div>
+      <div class="card"><div class="big">$2,500</div><p>Average job value (example)</p></div>
+      <div class="card"><div class="big">$12,500</div><p>Left on the table every month, to silence</p></div>
+    </div>
+    <p class="fine" style="margin-top:18px">Catch even two of those five and the pilot pays for itself many times over. Your numbers will differ — that's the point. Count your missed calls for a week and do the math.</p>
+  </div>
+</section>
+
+<!-- FULL SUITE -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow">After the pilot</span>
+    <h2>Once it's booking jobs, add the rest.</h2>
+    <p class="lede">Most shops start with the missed-call pilot, then layer on automation once they trust it.</p>
+    <div class="cards">
+      <div class="card"><h3>Review engine</h3><p>Automatic review requests after every job, plus professional responses to each one. Climbs you up Google Maps.</p></div>
+      <div class="card"><h3>Social on autopilot</h3><p>Before/after photos, tips, and seasonal posts published daily — without you touching your phone.</p></div>
+      <div class="card"><h3>Ad spend that converts</h3><p>Google and Facebook ads managed against your service area — with the lead capture to back them up.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ROI & Why Pay -->
-<section id="roi-section">
-  <div class="section-content">
-    <h2>Real Math: Why This Pays for Itself</h2>
-    <p class="section-sub">BoB typically pays for itself 3–5 times over in the first 30 days.</p>
-    <div class="roi-card">
-      <div class="roi-item">
-        <h3>Scenario: Landscaping Company</h3>
-        <div class="roi-stat">5</div>
-        <p><strong>Missed leads per month</strong> (calls/texts while on job sites). Each job = $2,500 average. That's <strong>$12,500/month</strong> lost to silence.</p>
-      </div>
-      <div class="roi-item">
-        <h3>With BoB</h3>
-        <div class="roi-stat">4</div>
-        <p><strong>Additional jobs captured</strong> per month just from answering faster and scheduling instantly. <strong>$10,000/month</strong> additional revenue.</p>
-      </div>
-      <div class="roi-item">
-        <h3>Cost</h3>
-        <div class="roi-stat">$699</div>
-        <p><strong>Monthly investment</strong> in Pro plan. ROI: <strong>14:1</strong> in first month alone. $10,000 revenue ÷ $699 cost = 14x return.</p>
-      </div>
+<!-- FAQ -->
+<section style="background:var(--mist)">
+  <div class="wrap" style="max-width:760px">
+    <span class="eyebrow">Straight answers</span>
+    <h2>Fair questions.</h2>
+    <div style="margin-top:24px">
+      <details>
+        <summary>Is this a robot calling my customers?</summary>
+        <p>No. The pilot is text-based — a fast, friendly text from your business number. Most customers never realize it isn't a person, and every conversation hands off to you the moment it matters.</p>
+      </details>
+      <details>
+        <summary>I already have someone answering phones. Why do I need this?</summary>
+        <p>You don't — during business hours. BoB covers nights, weekends, lunch breaks, and the jobs where nobody can pick up. It's the backup, not the replacement.</p>
+      </details>
+      <details>
+        <summary>Am I locked into a contract?</summary>
+        <p>No. Month to month, cancel anytime. If it doesn't book jobs, fire it.</p>
+      </details>
+      <details>
+        <summary>How fast can this be running?</summary>
+        <p>Days. We connect your business number, learn your services and schedule, and test it with you before it touches a real customer.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- Pricing -->
-<section id="pricing">
-  <div class="section-content">
-    <h2>Simple, Transparent Pricing</h2>
-    <p class="section-sub">No contracts. Cancel anytime. All plans include our money-back guarantee.</p>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <h3>Starter</h3>
-        <p class="price-card-subtitle">For small teams ready to capture leads</p>
-        <div class="price-amount">$299<span>/mo</span></div>
-        <p class="price-billing">Billed monthly. Cancel anytime.</p>
-        <ul class="price-features">
-          <li>24/7 AI Lead Capture (Chat + SMS)</li>
-          <li>Basic Estimate Scheduling</li>
-          <li>Review Request Automation</li>
-          <li>AI Review Responses</li>
-          <li>3 Social Posts/Week</li>
-          <li>Email Support</li>
-        </ul>
-        <button class="price-btn secondary">Learn More</button>
-      </div>
-
-      <div class="price-card featured">
-        <div class="price-tag">Most Popular</div>
-        <h3>Pro</h3>
-        <p class="price-card-subtitle">Full automation for growth</p>
-        <div class="price-amount">$699<span>/mo</span></div>
-        <p class="price-billing">Billed monthly. Cancel anytime.</p>
-        <ul class="price-features">
-          <li>Everything in Starter +</li>
-          <li>Facebook + Instagram AI Responses</li>
-          <li>Daily Automated Posts (7x/week)</li>
-          <li>Google Ads Optimization</li>
-          <li>Facebook Ads Management</li>
-          <li>Advanced Scheduling</li>
-          <li>Email Campaigns</li>
-          <li>Performance Dashboard</li>
-          <li>Priority Phone Support</li>
-        </ul>
-        <button class="price-btn primary">Start 14-Day Trial</button>
-      </div>
-
-      <div class="price-card">
-        <h3>Enterprise</h3>
-        <p class="price-card-subtitle">Custom for serious operators</p>
-        <div class="price-amount">$1,499+<span>/mo</span></div>
-        <p class="price-billing">Custom billing & terms.</p>
-        <ul class="price-features">
-          <li>Everything in Pro +</li>
-          <li>CRM System Integration</li>
-          <li>Job Management Sync</li>
-          <li>Team Training & Onboarding</li>
-          <li>Dedicated Account Manager</li>
-          <li>Custom AI Training</li>
-          <li>Multi-Location Support</li>
-        </ul>
-        <button class="price-btn secondary">Contact Sales</button>
-      </div>
+<!-- FINAL CTA -->
+<section class="final" id="demo">
+  <div class="wrap">
+    <span class="eyebrow">Stop leaving money on the table</span>
+    <h2>Message us. We'll show you your missed calls.</h2>
+    <p class="lede">Tell us your trade and how many calls you think you miss a month. We'll tell you honestly whether the pilot makes sense for your shop.</p>
+    <div class="btn-row">
+      <a class="btn btn-amber btn-pulse" data-messenger href="#">Chat on Messenger</a>
     </div>
 
-    <div style="text-align:center;margin-top:3rem;padding:2rem;background:var(--glass);border-radius:12px;border:1px solid var(--glass-border);">
-      <p style="font-size:1rem;color:var(--text-dim);">🎁 <strong>Special Offer:</strong> Sign up this month and get your first month 50% off. Plus, 14-day free trial with no credit card required.</p>
-    </div>
+    <form class="lead" id="walkthrough-form" novalidate>
+      <p style="font-weight:700; margin-bottom:4px">Or request a walkthrough:</p>
+      <p class="fine" style="color:#9fb0c3">We reply within 24 hours — usually same day.</p>
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_subject" value="New walkthrough request — BoB the Lobstar">
+      <label for="f-name">Full name</label>
+      <input id="f-name" name="name" type="text" required autocomplete="name">
+      <label for="f-phone">Phone (call / text)</label>
+      <input id="f-phone" name="phone" type="tel" required autocomplete="tel">
+      <label for="f-trade">Your trade</label>
+      <select id="f-trade" name="trade" required>
+        <option value="">Select your trade…</option>
+        <option>Plumbing</option><option>HVAC</option><option>Electrical</option>
+        <option>Roofing</option><option>Landscaping / Lawn Care</option>
+        <option>Painting</option><option>Cleaning</option><option>Pest Control</option>
+        <option>Handyman / General Contracting</option><option>Other</option>
+      </select>
+      <label for="f-missed">Missed calls per month (your best guess)</label>
+      <select id="f-missed" name="missed_calls">
+        <option>Not sure / just getting started</option>
+        <option>1–5</option><option>6–15</option><option>15–30</option><option>30+</option>
+      </select>
+      <button class="btn btn-amber" type="submit" id="walkthrough-btn">Request My Walkthrough</button>
+      <p class="fine" id="form-error" style="display:none; color:#ffb4a2; margin-top:12px">Hmm, that didn't go through — mind trying again, or just <a data-messenger href="#" style="color:#fff">message us on Messenger</a> instead?</p>
+    </form>
   </div>
 </section>
 
-<!-- Social Proof / Testimonials -->
-<section id="proof">
-  <div class="section-content">
-    <h2>What Contractors Say</h2>
-    <p class="section-sub">Real feedback from real business owners using BoB.</p>
-    <div class="proof-grid">
-      <div class="proof-card">
-        <p>"We were losing 3-4 leads a week to slow response times. Since BoB started, we haven't missed a single customer inquiry. Already paid for itself twice over in the first month."</p>
-        <div class="proof-author">Mike R., HVAC Contractor</div>
-        <div class="proof-role">Phoenix, AZ</div>
-      </div>
-      <div class="proof-card">
-        <p>"The review automation alone is a game-changer. Our Google rating jumped from 4.2 to 4.8 stars in 6 weeks. New customers see us first now because of it."</p>
-        <div class="proof-author">Sarah M., Landscaping</div>
-        <div class="proof-role">Scottsdale, AZ</div>
-      </div>
-      <div class="proof-card">
-        <p>"I hated managing social media. BoB does it every day without me thinking about it. My phone rings more. My team loves the extra free time."</p>
-        <div class="proof-author">James K., Plumbing</div>
-        <div class="proof-role">Mesa, AZ</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Chat Widget Mount Point -->
-<section id="bob-chat-embed"
-         data-bob-label="AI Assistant"
-         data-bob-title="Questions About BoB?"
-         data-bob-sub="Ask about pricing, features, how BoB captures leads, or schedule a demo. BoB answers instantly.">
-</section>
-
-<!-- ── Demo Request Form ───────────────────────── -->
-<section id="book">
-  <div class="book-inner">
-    <div class="book-header">
-      <h2>See BoB in Action</h2>
-      <p>Fill out the form and we'll set up a personalized demo tailored to your business and service area — usually within 24 hours.</p>
-    </div>
-
-    <div class="form-card">
-      <form name="bob-leads" method="POST" action="https://formsubmit.co/aibob@bobthelobstar.com">
-        <input type="hidden" name="_subject" value="New BoB Demo Request" />
-        <input type="hidden" name="_next" value="https://bobthelobstar.com/thanks.html" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <p style="display:none"><label>Don't fill this: <input name="_honey" /></label></p>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="name">Full Name *</label>
-            <input id="name" name="name" type="text" required placeholder="Jane Smith" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email *</label>
-            <input id="email" name="email" type="email" required placeholder="you@example.com" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="phone">Phone (Call / Text)</label>
-            <input id="phone" name="phone" type="tel" placeholder="(555) 555-5555" class="form-input" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="company">Business Name</label>
-            <input id="company" name="company" type="text" placeholder="Your business, LLC" class="form-input" />
-          </div>
-        </div>
-
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label" for="industry">Your Industry</label>
-            <select id="industry" name="industry" class="form-select">
-              <option value="">Select your trade...</option>
-              <option>Plumbing</option>
-              <option>HVAC</option>
-              <option>Electrical</option>
-              <option>Landscaping / Lawn Care</option>
-              <option>Roofing</option>
-              <option>Window Cleaning</option>
-              <option>Painting</option>
-              <option>House Cleaning</option>
-              <option>Pest Control</option>
-              <option>Handyman / General Contracting</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="missed_leads">Leads Missed per Month</label>
-            <select id="missed_leads" name="missed_leads" class="form-select">
-              <option value="">Select range...</option>
-              <option>Not sure / just getting started</option>
-              <option>1–5 missed leads/month</option>
-              <option>6–15 missed leads/month</option>
-              <option>15–30 missed leads/month</option>
-              <option>30+ missed leads/month</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group full" style="margin-bottom:1.5rem;">
-          <label class="form-label" for="message">What would you like to automate first?</label>
-          <textarea id="message" name="message" rows="4" placeholder="e.g. I want BoB to answer texts and Facebook messages when I'm on jobs, auto-book estimates, and start getting more Google reviews automatically..." class="form-textarea"></textarea>
-        </div>
-
-        <button type="submit" class="form-submit">
-          Request My Free Demo
-          <span style="font-size:1.1rem;">→</span>
-        </button>
-        <p class="form-note">We respond within 24 hrs — usually same day. No credit card required.</p>
-      </form>
-    </div>
-
-    <div class="book-phone">
-      Prefer to talk first? Call or text us at <a href="tel:+17023373494">702-337-3494</a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA Footer -->
-<section style="background:linear-gradient(135deg,rgba(0,255,65,0.08) 0%,transparent 100%);text-align:center;">
-  <div class="section-content">
-    <h2 style="margin-bottom:1rem;">Stop Leaving Money on the Table</h2>
-    <p class="section-sub" style="max-width:600px;margin:0 auto 2rem;">Every day without BoB is another day you're losing leads to faster competitors. Start your 14-day free trial today.</p>
-    <a href="#pricing" class="btn-primary">Get Started Now</a>
-  </div>
-</section>
-
-<!-- Footer -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-col">
-      <h4>BoB The Lobstar</h4>
-      <p>AI marketing & operations automation for service contractors. Built in Phoenix, used nationwide.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Product</h4>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#industries">Industries</a>
-      <a href="https://bobthelobstar.com/privacy.html">Privacy</a>
-      <a href="https://bobthelobstar.com/terms.html">Terms</a>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <a href="mailto:aibob@bobthelobstar.com">Email Us</a>
-      <a href="tel:+17023373494">702-337-3494</a>
-      <p>Phoenix, Arizona<br>Available 24/7</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 BARILLAS AI LLC. BoB The Lobstar™ is a trademark of BARILLAS AI LLC. All rights reserved.</p>
+  <div class="wrap">
+    <p>© 2026 BoB the Lobstar · Phoenix, AZ · <a data-messenger href="#">Message us on Messenger</a></p>
   </div>
 </footer>
-
-<!-- Pixel Tracking Scripts -->
-<script>
-  // Track page sections viewed
-  document.querySelectorAll('section[id]').forEach(function(el) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          fbq('track', 'ViewContent', { content_ids: [entry.target.id], content_name: entry.target.id, content_type: 'product' });
-          ttq.track('ViewContent', { content_id: entry.target.id, content_name: entry.target.id });
-        }
-      });
-    }, { threshold: 0.3 });
-    observer.observe(el);
-  });
-
-  // Track CTA + form submit clicks
-  document.querySelectorAll('.btn-primary, .price-btn, .form-submit').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      fbq('track', 'ClickButton', { content_name: this.innerText.trim() });
-      ttq.track('ClickButton', { content_name: this.innerText.trim() });
-    });
-  });
-
-  // Track pricing view
-  var pricingSection = document.getElementById('pricing');
-  if (pricingSection) {
-    var pricingObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          fbq('track', 'ViewContent', { content_id: 'pricing-table', content_name: 'Pricing Plans' });
-          ttq.track('ViewContent', { content_id: 'pricing-table' });
-        }
-      });
-    }, { threshold: 0.3 });
-    pricingObserver.observe(pricingSection);
-  }
-
-  // Back-to-top visibility
-  var backToTop = document.getElementById('back-to-top');
-  window.addEventListener('scroll', function() {
-    backToTop.classList.toggle('visible', window.scrollY > 400);
-  });
-
-  // Mobile nav toggle
-  function toggleMobileNav() {
-    var nav = document.getElementById('mobileNav');
-    var btn = document.getElementById('hamburger');
-    nav.classList.toggle('open');
-    btn.classList.toggle('open');
-    document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-  }
-  function closeMobileNav() {
-    document.getElementById('mobileNav').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Keyboard support for chat shortcut card
-  document.querySelector('.chat-shortcut').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      document.getElementById('bob-chat-embed').scrollIntoView({behavior:'smooth'});
-    }
-  });
-</script>
-
-<link rel="stylesheet" href="/chat-widget.css">
-<script src="/chat-widget.js" defer></script>
 
 </body>
 </html>
