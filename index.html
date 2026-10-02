@@ -18,8 +18,12 @@
      time someone submits, FormSubmit emails an activation link to that inbox —
      click it once and every later submission lands straight in the inbox.
   Upload to GitHub: index.html at the repo root, and the
-  images/ folder next to it (images/contractor-hero.jpg,
-  images/bob-logo.png).
+  images/ folder next to it with these 5 files:
+    images/bob-logo.png          (header logo + favicon)
+    images/contractor-hero.jpg   (hero photo)
+    images/step-missed-call.jpg  ("You miss a call" card)
+    images/step-textback.jpg     ("BoB texts back" card)
+    images/step-booked-job.jpg   ("Estimate booked" card)
   ============================================================
 -->
 <script>
@@ -152,6 +156,7 @@
   .step{background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); padding:26px}
   .step .n{background:var(--amber); color:#221a05}
   .step p:last-child{margin-bottom:0; color:#c4cfdb}
+  .step-img{width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:10px; margin-bottom:18px}
   .chat-bubble{background:#fff; color:var(--ink); border-radius:16px 16px 16px 4px; padding:14px 18px;
                margin-top:14px; font-size:.95rem; box-shadow:0 6px 18px rgba(0,0,0,.25)}
   .chat-bubble small{display:block; color:var(--muted); font-size:.78rem; margin-top:6px}
@@ -270,17 +275,20 @@
     <p class="lede">No apps to learn. No behavior to change. You just stop losing the calls you're already missing.</p>
     <div class="cards">
       <div class="step">
+        <img src="images/step-missed-call.jpg" alt="Plumber under a sink missing an incoming call" class="step-img" loading="lazy">
         <span class="n">1</span>
         <h3>You miss a call</h3>
         <p>On a job, up a ladder, under a house. It happens — that's the business.</p>
       </div>
       <div class="step">
+        <img src="images/step-textback.jpg" alt="Instant text-back conversation on a smartphone" class="step-img" loading="lazy">
         <span class="n">2</span>
         <h3>BoB texts back in under a minute</h3>
         <p>The customer gets a friendly text from your business instantly — before they dial the next guy.</p>
         <div class="chat-bubble">"Sorry we missed you! This is Mike's Plumbing — do you need an estimate or is something urgent?"<small>— sent automatically, in your business's name</small></div>
       </div>
       <div class="step">
+        <img src="images/step-booked-job.jpg" alt="Contractor shaking hands with a happy homeowner after booking the job" class="step-img" loading="lazy">
         <span class="n">3</span>
         <h3>Lead qualified, estimate booked</h3>
         <p>BoB asks the right questions, offers your open slots, and puts the job on your calendar. You just show up.</p>
