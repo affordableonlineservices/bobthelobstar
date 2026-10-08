@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BoB the Lobstar — Never Miss Another Job | AI Missed-Call Rescue for Contractors</title>
 <meta name="description" content="BoB texts back every missed call in under a minute, qualifies the lead, and books the estimate. Built for HVAC, plumbing, electrical, roofing and other home-service contractors. No contracts.">
-<link rel="icon" href="images/bob-logo.png">
+<link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="stylesheet" href="chat-widget.css">
 <!--
   ============================================================
@@ -21,7 +22,9 @@
   Upload to GitHub: index.html + chat-widget.css at the repo root
   (chat-widget.js is already there — do NOT re-upload it), and the
   images/ folder next to them with these 5 files:
-    images/bob-logo.png          (header logo + favicon)
+    images/bob-logo.png          (header logo)
+    images/favicon.png           (browser tab icon)
+    images/apple-touch-icon.png  (iPhone/iPad home-screen icon)
     images/contractor-hero.jpg   (hero photo)
     images/step-missed-call.jpg  ("You miss a call" card)
     images/step-textback.jpg     ("BoB texts back" card)
@@ -117,8 +120,8 @@
   @keyframes cta-ping{0%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 0 rgba(245,166,35,.55)}
     70%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 16px rgba(245,166,35,0)}
     100%{box-shadow:0 8px 24px rgba(245,166,35,.35),0 0 0 0 rgba(245,166,35,0)}}
-  .bob-logo{animation:bob-float 4.5s ease-in-out infinite; filter:drop-shadow(0 4px 12px rgba(245,166,35,.35))}
-  .brand:hover .bob-logo{animation-play-state:paused; filter:drop-shadow(0 6px 20px rgba(245,166,35,.75))}
+  .bob-logo{animation:bob-float 4.5s ease-in-out infinite; filter:drop-shadow(0 4px 12px rgba(37,99,235,.35))}
+  .brand:hover .bob-logo{animation-play-state:paused; filter:drop-shadow(0 6px 20px rgba(37,99,235,.7))}
   .btn{will-change:transform}
   .btn:hover{transform:translateY(-3px)}
   .btn-amber:hover{box-shadow:0 14px 34px rgba(245,166,35,.55)}
@@ -132,6 +135,7 @@
   .bar{display:flex; align-items:center; justify-content:space-between; height:68px}
   .brand{display:flex; align-items:center; gap:12px; color:#fff; text-decoration:none; font-weight:800; font-size:1.1rem}
   .brand img{width:150px; height:auto; display:block; margin:-14px 0; border-radius:12px}
+  @media(max-width:560px){.brand img{width:112px} .brand{font-size:.95rem; gap:8px}}
   .bar .btn{min-height:44px; padding:10px 22px; font-size:.95rem}
   /* hero */
   .hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%); color:#fff; padding:72px 0 64px}
@@ -209,7 +213,7 @@
 <header>
   <div class="wrap bar">
     <a class="brand" href="#top">
-      <img src="images/bob-logo.png" alt="BoB the Lobstar logo" class="bob-logo">
+      <img src="images/bob-logo.png" alt="BoB — Call and Text System logo" class="bob-logo">
       BoB the Lobstar
     </a>
     <a class="btn btn-amber" data-messenger href="#">Message Us</a>
